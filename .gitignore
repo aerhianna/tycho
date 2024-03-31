@@ -4,9 +4,11 @@ src/makefile.env
 # PGPLOT Source Code
 pgplot.tar.gz
 src/PGPLOT/*
-!src/PGPLOT/sys_linux/tycho.conf.in
 !src/PGPLOT/make_pgplot_tycho.sh
 !src/PGPLOT/Makefile
+!src/PGPLOT/sys_linux
+src/PGPLOT/sys_linux/*
+!src/PGPLOT/sys_linux/tycho.conf.in
 
 # Temporary Files
 **/._*
