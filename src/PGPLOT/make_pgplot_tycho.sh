@@ -21,7 +21,7 @@ cat tycho.conf.in|sed s,'@FC@',$FC,g|sed s,'@CC@',$CC,g|sed s,'@XLIBS@',"$XLIBS"
      sed s,'@XINCS@',"$XINCS",g|sed s,'@FFLAGS@',"$FFLAGS",g \
     > tycho.conf
 
-mkdir --parents ../lib
+mkdir -p ../lib
 cd ../lib
 rm *.o *.a
 cp ../drivers.list .

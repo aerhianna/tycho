@@ -6,20 +6,20 @@ THISDIR="$(dirname $0)"  # The path to the directory containing this script
 
 cd $THISDIR
 
-# Download PGPLOT
+echo "[INFO] Downloading PGPLOT source code"
 ./download_pgplot.sh
 
-# Configure `makefile.env`
+echo "[INFO] Creating a makefile.env file for your OS ($OSTYPE)"
 cp src/makefile.env.$OSTYPE src/makefile.env
 
-# Compile Tycho and related programs
-mkdir --parents test
+echo "[INFO] Compiling Tycho and related programs"
+mkdir -p test
 cd src && make all && cd ../
 
-# Create environment folder
-mkdir --parents $MYENV
+echo "[INFO] Creating environment directory $MYENV"
+mkdir -p $MYENV
 
-# Copy in built programs (requires `cd src && make all` first)
+echo "[INFO] Copying built programs to $MYENV"
 cp test/cvplot $MYENV
 cp test/genex $MYENV
 cp test/gennuc $MYENV
@@ -31,16 +31,16 @@ cp test/omit $MYENV
 cp test/ratios $MYENV
 cp test/tycho8 $MYENV
 
-# Copy in data files
+echo "[INFO] Copying data files to $MYENV"
 cp data/* $MYENV
 mv $MYENV/EOSdata $MYENV/EOSdata_H-He
 
-# Copy in config files
+echo "[INFO] Copying config files to $MYENV"
 cp config/* $MYENV
 
-# Copy in a base model file
+echo "[INFO] Copying a sample base model to $MYENV"
 cp models/a000000 $MYENV/imodel
 
-# Create a .gitignore files
+echo "[INFO] Adding a .gitignore file to $MYENV to exclude auto-added environment files from source control"
 echo "# Ignore all auto-added environment files" > $MYENV/.gitignore
 ls $MYENV >> $MYENV/.gitignore
