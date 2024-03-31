@@ -1,0 +1,15 @@
+
+c..include file conline
+
+      real*8      xlol, telog, ditmax, xmfinl, xmintl
+
+      integer*4   kitmax, nitest, kccore, kq
+
+      character*2 dtcflag(2)
+
+      character cnit(5)
+
+      common/conline/ xlol, telog, ditmax, xmfinl, xmintl,
+     1                kitmax, nitest, kccore, kq, 
+     2                dtcflag, cnit
+

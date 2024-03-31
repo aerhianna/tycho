@@ -1,0 +1,5 @@
+
+c..include file cphot
+
+      real*8         rphot, uphot
+      common /cphot/ rphot, uphot

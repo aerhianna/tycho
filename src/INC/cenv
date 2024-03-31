@@ -1,0 +1,45 @@
+
+c..include file cenv
+c..envelope integration variables
+
+      integer*4 kdme, jmaxz, loo
+      parameter( kdme = 4000 )
+
+      real*8    ztem(kdme), zrho(kdme), zp(kdme),   zr(kdme),
+     1          zm(kdme),   zl(kdme),   znab(kdme), znrad(kdme),
+     2          znad(kdme), zak(kdme),  zyef(kdme), zvel(kdme),
+     3	        zsound(kdme), zentropy(kdme), ze(kdme),
+     4          zev(kdme),zet(kdme),zv(kdme),zpt(kdme),zpv(kdme), 
+     5          zakt(kdme), zeta(kdme)
+      real*8    epsilon
+c..   alphaml (mixing length/P scale height) included in common comod
+
+      common/cenv/
+     1          ztem, zrho, zp,   zr,
+     2          zm,   zl,   znab, znrad,
+     3          znad, zak,  zyef, zvel, zsound, zentropy, ze, epsilon,
+     4          zev,zet,zv,zpt,zpv,zakt,zeta,
+     5          jmaxz, loo
+
+      save /cenv/
+
+      integer*4 nenv
+      parameter( nenv = 5)
+      integer*4 nvmax(nenv)
+
+      real*8    vtem(kdme,nenv), vrho(kdme,nenv), vp(kdme,nenv),   
+     1		vr(kdme,nenv), vm(kdme,nenv),   vl(kdme,nenv),   
+     2		vnab(kdme,nenv), vnrad(kdme,nenv), vnad(kdme,nenv), 
+     3		vak(kdme,nenv),  vyef(kdme,nenv), vvel(kdme,nenv),
+     4	    vsound(kdme,nenv), ve(kdme,nenv), epsill, epsirr,
+     5      vcmp(kdme,nenv),vcp(kdme,nenv),ventr(kdme,nenv)
+
+
+	common/cenv2/  vtem, vrho, vp,   
+     1		vr, vm,   vl,   
+     2		vnab, vnrad, vnad, 
+     3		vak,  vyef, vvel, vsound, ve, epsill, epsirr,vcmp,ventr,
+     4		nvmax
+
+	save /cenv2/
+  

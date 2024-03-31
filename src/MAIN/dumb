@@ -1,0 +1,186 @@
+50a51
+>          write(*,*)j,nz(j),nn(j)
+136c137
+<       real*8 i1, i2, i3, i4, i5, i6
+---
+>       real*8 i1, i2, i3, i4, i5
+308c309
+< c..deck 8: 3-->1 
+---
+> c..deck 8: 3-->1 and 2
+314,315c315,316
+<      3        rname(4,k) .eq. rname(4,k-1) )then
+< 
+---
+>      3        rname(4,k) .eq. rname(4,k-1) .and.
+>      4        rname(5,k) .eq. rname(5,k-1) )then
+331,402d331
+< c..deck 9: 3-->2 
+<       iline(k1deck(9)) = 1
+<       do k = k1deck(9)+1,k2deck(9)
+<          if( rname(1,k) .eq. rname(1,k-1) .and.
+<      1        rname(2,k) .eq. rname(2,k-1) .and.
+<      2        rname(3,k) .eq. rname(3,k-1) .and.
+<      3        rname(4,k) .eq. rname(4,k-1) .and.
+<      3        rname(5,k) .eq. rname(5,k-1) )then
+< 
+< c..repeat
+<             iline(k) = iline(k-1)+1
+<          else
+< c..new rate
+<             iline(k) = 1
+<          endif
+<       enddo
+<       isum = 0
+<       do k = k1deck(9),k2deck(9)
+<          isum = isum + iline(k)-1
+< c         write(*,'(i5,5a6,i5)')k,rname(1,k),rname(2,k),rname(3,k),
+< c     1        rname(4,k),rname(5,k),iline(k)
+<       enddo
+<       write(*,*)isum,' multiline rates in deck 9'
+< 
+< c..deck 10: 4-->2 
+<       iline(k1deck(10)) = 1
+<       do k = k1deck(10)+1,k2deck(10)
+<          if( rname(1,k) .eq. rname(1,k-1) .and.
+<      1        rname(2,k) .eq. rname(2,k-1) .and.
+<      2        rname(3,k) .eq. rname(3,k-1) .and.
+<      3        rname(4,k) .eq. rname(4,k-1) .and.
+<      4        rname(5,k) .eq. rname(5,k-1) .and.
+<      5        rname(6,k) .eq. rname(6,k-1) )then
+< 
+< c..repeat
+<             iline(k) = iline(k-1)+1
+<          else
+< c..new rate
+<             iline(k) = 1
+<          endif
+<       enddo
+<       isum = 0
+<       do k = k1deck(10),k2deck(10)
+<          isum = isum + iline(k)-1
+< c         write(*,'(i5,5a6,i5)')k,rname(1,k),rname(2,k),rname(3,k),
+< c     1        rname(4,k),rname(5,k),iline(k)
+<       enddo
+<       write(*,*)isum,' multiline rates in deck 10'
+< 
+< c..deck 11: 1-->4 
+<       iline(k1deck(11)) = 1
+<       do k = k1deck(11)+1,k2deck(11)
+<          if( rname(1,k) .eq. rname(1,k-1) .and.
+<      1        rname(2,k) .eq. rname(2,k-1) .and.
+<      2        rname(3,k) .eq. rname(3,k-1) .and.
+<      3        rname(4,k) .eq. rname(4,k-1) .and.
+<      4        rname(5,k) .eq. rname(5,k-1) )then
+< 
+< c..repeat
+<             iline(k) = iline(k-1)+1
+<          else
+< c..new rate
+<             iline(k) = 1
+<          endif
+<       enddo
+<       isum = 0
+<       do k = k1deck(11),k2deck(11)
+<          isum = isum + iline(k)-1
+< c         write(*,'(i5,5a6,i5)')k,rname(1,k),rname(2,k),rname(3,k),
+< c     1        rname(4,k),rname(5,k),iline(k)
+<       enddo
+<       write(*,*)isum,' multiline rates in deck 11'
+421,423c350,352
+<      1           rname(2,k) .eq. rname(1,j) )then
+<               if( iline(k)   .eq. iline(j)   )then
+<                  if( qval(k) .gt. 0.0d0 )then
+---
+>      1           rname(2,k) .eq. rname(1,j) .and.
+>      2           iline(k)   .eq. iline(j)   .and.
+>      3           qval(k) .gt. 0.0d0 )then
+425,430c354,355
+<                      irev(j) = -k
+<                      irev(k) = j
+<                   else
+<                      irev(j) = k
+<                      irev(k) = -j
+<                   endif
+---
+>                   irev(k) = j
+>                   irev(j) = -k
+437c362
+<                endif   
+---
+> 
+454,457c379,382
+<                if( iline(k) .eq. iline(j) )then
+<                  if(qval(k) .gt. 0.0d0 )then
+<                     irev(j) = -k
+<                     irev(k) = j
+---
+>                if( iline(k) .eq. iline(j))then
+>                   if(qval(k) .gt. 0.0d0 )then
+>                      irev(k) = j
+>                      irev(j) = -k
+469d393
+< c         write(*,*)k,irev(k),qval(k),qval(abs(irev(k)))
+471c395
+< c      stop
+---
+> 
+534c458
+< c deck 6 and 9: fission and fusion 2--->3 and 3-->2
+---
+> c deck 6 and 8: fission and fusion 2--->3 and 3-->2
+545c469
+<          do j = k1deck(9),k2deck(9)
+---
+>          do j = k1deck(8),k2deck(8)
+550,588c474
+<      4           rname(5,k) .eq. rname(3,j) )then
+<                if( iline(k) .eq. iline(j) )then
+<                   if( qval(k) .gt. 0.0d0 )then
+<                      irev(j) = -k
+<                      irev(k) = j
+<                   else
+<                      irev(j) = k
+<                      irev(k) = -j
+<                   endif
+< c                     write(*,'(5x,2i5,5a6,5x,a6,2a2,4i5)')j,
+< c     1                    ideck(j),
+< c     1                    (rname(i,j),i=1,5),rlkh(j),rvw(j),rnr(j),
+< c     2                    j,irev(j),iline(j),iline(k)
+<                endif
+<             endif
+<          enddo
+< c            write(*,*)k,j,rname(1,k),rname(2,k),rname(3,k),rname(4,k),
+< c     1                rname(5,k),iline(k),iline(j),irev(j),irev(k)
+<       enddo
+< 
+< c deck 7 and 10: fission and fusion 2--->4 and 4-->2
+<       do k= k1deck(7),k2deck(7)
+<          i1 = nrr(1,k)
+<          i2 = nrr(2,k)
+<          i3 = nrr(3,k)
+<          i4 = nrr(4,k)
+<          i5 = nrr(5,k)
+<          i6 = nrr(6,k)
+< c            write(*,'(2i5,5a6,5x,a6,2a2)')k,ideck(k),(rname(i,k),i=1,5),
+< c     1           rlkh(k),rvw(k),rnr(k)
+< 
+< c..look for its forward rate
+<          do j = k1deck(10),k2deck(10)
+<             if(  rname(1,k) .eq. rname(5,j) .and. 
+<      1           rname(2,k) .eq. rname(6,j) .and.
+<      2           rname(3,k) .eq. rname(1,j) .and.
+<      3           rname(4,k) .eq. rname(2,j) .and.
+<      4           rname(5,k) .eq. rname(3,j) .and.
+<      5           rname(6,k) .eq. rname(4,j) )then
+---
+>      4           rname(5,k) .eq. rname(3,j)  )then
+611,612c497
+<       
+<       do j  = k1deck(1),k2deck(10)
+---
+>       do j  = k1deck(1),k2deck(8)
+627c512
+<       write(*,*)'leaving ',k2deck(10)-i,
+---
+>       write(*,*)'leaving ',k2deck(8)-i,

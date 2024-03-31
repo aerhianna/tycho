@@ -1,0 +1,32 @@
+c..deck 4 a + b ---> c
+c..deck 5 a + b ---> c + d
+      do i = k1deck(4),k2deck(7)
+         uwk  = tm1*zprd(i)
+         uint = 0
+         ustr = 0
+         if( uwk .le. weakscrn )then
+            utot(i) = uwk
+            dscr(i) =  0.5d0*uwk
+            dsct(i) = -1.5d0*uwk
+         else
+            uint = 0.38d0*xxl8*xtr*z86(i)/(amu*z58*z28)
+            if( uint .le. 2.0d0 )then
+               utot(i) = uint
+               dscr(i) =  0.43d0*uint
+               dsct(i) = -1.29d0*uint
+             else
+                ustr = 0.624d0*z33*xxl6*(z53(i)+0.316d0*z33*z43(i)
+     1               +0.737d0*z23(i)/(zbar*xxl6))
+                if( ustr .lt. uint .or. uwk .ge. 5.0d0 )then
+                   utot(i) = ustr
+                   dscr(i) = 0.208d0*z33*(z53(i) + 0.316d0*z33*z43(i))
+     1                  *xxl6
+                   dsct(i) = -3.0d0*dscr(i)
+                else
+                   utot(i) = uint
+                   dscr(i) =  0.43d0*uint
+                   dsct(i) = -1.29d0*uint
+                endif
+             endif
+         endif
+      enddo

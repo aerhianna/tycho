@@ -1,0 +1,16 @@
+
+c..ctiming common block for timing routines
+c..
+c..
+c..
+c..
+c..
+
+      real*8 
+     . runburn0, runburn1, runburn,
+     . runstate0, runstate1, runstate,
+     . runenvel0, runenvel1, runenvel
+
+      common/ctiming/
+     . runburn0,runburn1,runburn,runstate0,runstate1,runstate,
+     . runenvel0,runenvel1,runenvel

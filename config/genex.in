@@ -1,0 +1,24 @@
+
+'.....................................................................'
+' GENEX:                                                              '
+'.....................................................................'
+' Scaling(0=M,R;1=sol scale;2=OPAL)..........' 'ifm'       0
+' lumin.ne.0..reevaluate luminosity=radiative' 'lumin'     0
+' OPAL opacity type (0=type2,1=type1)........' 'nopac'     1
+' OPAL EOS (0=no,1=yes)......................' 'nopaleos'  1
+'..............................................MASS and RADIUS scaling'
+' ifm=0:Fractional mass scaling   (0=ignore).' 'fm'        0.7d0
+' ifm=0:Fractional radius scaling (0=ignore).' 'fr'        0.7d0
+'.........................................SYSTEMATIC ABUNDANCE SCALING'
+' ifm=1:metallicity scale relative to solar..' 'zscale'    0.0d-0
+' ifm=1:production ratio He4/z...............' 'hetoz'     2.1d0
+'......................................PARAMETERIZED ABUNDANCE SCALING'
+' ifm=2:mass fraction for metallicity........' 'zpop'      0.01881d0
+' ifm=2:mass fraction for He4................' 'xhe'       0.2676
+' ifm=2:mass fraction for extra C12 (OPAL)...' 'xc12'      0.00
+' ifm=2:mass fraction for extra O16 (OPAL)...' 'xo16'      0.00
+'.....................................................................'
+' Solid body rotation if omegbar .gt. 0/sec..' 'omegbar'   6.1d-8
+'.....................................................................'
+' Mixing mode flag...........................' 'mixmode'   2
+'.....................................................................'

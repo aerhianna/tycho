@@ -1,0 +1,39 @@
+
+c..czone common for include
+c..	dlnv is interval in ln density allowed
+c..	xmmax is
+c..	xmmin is
+c..	dmmax is
+c..	irmax is
+c..	facte is limit on fraction of nuclear luminosity generated 
+c..	in a single zone
+c..	epslum is
+
+      real*8    dlnv,xmmax,xmmin,dmmax,drmax,facte,epslum
+
+c..	ktot is total number of zones (boundaries) allowed
+c..	l4 is skip interval (in timesteps) for rezoning call
+c..	ismoo is flag for smoothing of zone mass distribution
+
+      integer*4 ktot,l4,ismoo
+
+c..	jj     = old number of zones in henyey mesh
+c..	njj    = new number of zones in henyey mesh
+c..	netadd = net number of added zones
+
+      integer*4 jj,njj,netadd,kforce
+
+c..   	iadd = flag to add zone (divide zone)
+c..	idel = flag to delete boundary (merge zones)
+
+      integer*4 iadd(kdm),idel(kdm)
+
+c..   old and new mass coordinates, at boundary and half (center)
+c..	and zone masses
+
+      real*8    qqo(kdm),qqn(kdm),qq2o(kdm),qq2n(kdm),dqqn(kdm)
+
+      common/czone/dlnv,xmmax,xmmin,dmmax,drmax,facte,epslum, 
+     1	qqo,qqn,qq2o,qq2n,dqqn,
+     1 ktot,l4,ismoo,iadd,idel,
+     3 jj,njj,netadd,kforce

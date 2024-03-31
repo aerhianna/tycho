@@ -1,0 +1,19 @@
+'.....................................................................'
+' GENPLOT:                                                            '
+'.....................................................................'
+' Display device: /ps, 3/xwin ...............' 'device'   '/xwin'
+' Line style.0=solid line, else dots.........' 'linesty'   0
+' EOS flag (0=fxt,1=opal)....................' 'nopaleos'  1
+' nopac (-1=thomson,0=opal2,1=opal1).........' 'nopac'     1
+' scale opacity (0=no, else yes).............' 'nkscale'   0
+' nburn (-1=no,0=opath,1=explicit)...........' 'nburn'     1
+' tag (0=mass,1=t-t(last),else=time).........' 'lmods'     2
+' Number of models to plot...................' 'imods'     1
+' Filename of model..........................' 'cmod'      '0149147'
+' Variable flag for x axis..(see getvec.f)...' 'cvarx'     'xm'
+' Variable flag for y axis..(see getvec.f....' 'cvary'     'tem'
+' Override value for xmin....................' 'xminf'     0.0e0
+' Override value for xmax (no if = xmin).....' 'xmaxf'     0.0e0
+' Override value for ymin....................' 'yminf'     0.0e0
+' Override value for ymax (no if = ymin).....' 'ymaxf'     0.0e3
+'.....................................................................'

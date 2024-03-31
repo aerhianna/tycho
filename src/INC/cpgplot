@@ -1,0 +1,24 @@
+
+c..cpgplot include file
+
+      real*4      fbot,ftop,cvsc,xlogmin,xlogmax,pgscal
+      integer*4   ixflag,nabflg,nxflg,idpg1,idpg2,idpg3,idpg4,igraf
+      character*7 device1,device2,device3,device4
+
+      common/cpgplot/cvsc,fbot,ftop,xlogmin,xlogmax,pgscal,
+     1  ixflag,nabflg,nxflg, idpg1, idpg2, idpg3, idpg4,igraf,
+     2  device1, device2, device3, device4
+
+c..HR plot frame
+      real*4        gtmin,gtmax,glmin,glmax
+      common/chrplt/gtmin,gtmax,glmin,glmax
+
+c..convection plot frame
+      real*4        pg3xmin,pg3xmax,pg3ymin,pg3ymax
+      integer*4     ixpg3,iypg3
+      common/ccvplt/pg3xmin,pg3xmax,pg3ymin,pg3ymax,ixpg3,iypg3
+
+c..debug plot frame
+      real*4        pg4xmin,pg4xmax,pg4ymin,pg4ymax
+      integer*4     ixpg4,iypg4
+      common/cdbplt/pg4xmin,pg4xmax,pg4ymin,pg4ymax,ixpg4,iypg4

@@ -1,0 +1,739 @@
+1,3d0
+< c
+< c
+< c
+55d51
+<       real*8 dnradold, dnabold, dnadold
+65,68d60
+<       real*8 dnabtiny, hsmall
+<       integer*4 ishear
+< 
+< 
+69a62
+> c      integer*4 kbeg(kdm),kend(kdm),nrczones
+73,74d65
+< 
+< 
+76,93c67,69
+< c     write(*,*)'MSG(cinit.f): ENTERING ',kin,ktop,nc
+< c--------------------------------------------
+< c..   no convection over-ride
+<       if( modec .lt. 0 )then
+<          return
+<       endif
+<       
+<       print*,'MSG(cinit): executing. l,model =',l,model
+<       
+< 
+< c..   SOME FLOW CONTROL FLAGS
+<       
+<       ishear = 1                !modify conv spd by shear/nsqr (1=yes)
+<       
+<       
+<       
+<       
+< c..   define current values of nablas, store old values
+---
+> c      write(*,*)'ENTERING CINIT ',kin,ktop,nc
+> cccccccccccccccccccccccccccccccccccccc
+> c..   define current values of nablas
+95,99d70
+< c     
+<          dnrado(i) = dnrad(i)   !store old values
+<          dnado (i) = dnad (i)   !      "
+<          douxo (i) = doux (i)   !      "
+< c     
+110,119d80
+< c     update Ye
+<          x(ndim,i) = 0
+<          do n = 1, nnuc
+<            x(ndim,i) = x(ndim,i) + x(n,i)*nucz(n)/nuca(n)
+<          enddo
+<          x(ndim,i+1) = 0
+<          do n = 1, nnuc
+<            x(ndim,i+1) = x(ndim,i+1) + x(n,i+1)*nucz(n)/nuca(n)
+<          enddo
+< c     total free particle number
+144,147d104
+<          
+< c..   TODO: THIS EXPRESSION FOR doufak IS ONLY CORRECT 
+< c..   FOR IDEAL GAS w/RAD PRESS, RIGHT?
+<          
+149c106
+<          
+---
+> 
+153,159c110,114
+< c              doux(i) = doufak * dely(i) * 
+< c     1           pi4*r(1,i)**4*0.5d0*( p(1,i)/ykm + p(1,i+1)/ykp )/
+< c     1           ( grav*xm(i)*dmi(i) )
+< c     
+<             doux(i) = -doufak*(p(nc,i+1)+p(nc,i))/(ykp+ykm)*
+<      .           dely(i)/(p(nc,i+1)-p(nc,i))
+<             
+---
+> c..   no semiconvection in sphere to shell transition
+> c..   this form reduces roundoff
+>             doux(i) = doufak * dely(i) * 
+>      1           pi4*r(1,i)**4*0.5d0*( p(1,i)/ykm + p(1,i+1)/ykp )/
+>      1           ( grav*xm(i)*dmi(i) )
+164,165c119,120
+<      1           * 3.0d0 * r(nc,i)/( grav*dmi(i) ) 
+<      2           * ( p(nc,i)*v(nc,i)/ykm +p(nc,i+1)*v(nc,i+1)/ykp)*0.5d0
+---
+>      1           * 3.0d0 * r(1,i)/( grav*dmi(i) ) 
+>      1           * ( p(1,i)*v(1,i)/ykm +p(1,i+1)*v(1,i+1)/ykp ) *0.5d0
+167d121
+<          
+181c135
+<          dnad(i)  = 0.0d0
+---
+>          dnad(i) = 0.0d0
+208,213c162,166
+< 
+< c     NOT SURE WHERE THIS LIMIT IS NEEDED
+< c     USING tl(n,ci) FOR LUMINOSITY IN THE MEANTIME
+< c     ...................................
+< c      tlum = max(tl(nc,i), tle)
+<          tlum = tl(nc,i)
+---
+>          if( tl(nc,i) .le. tle )then
+>             tlum = tle
+>          else
+>             tlum = tl(nc,i)
+>          endif
+217,219c170,171
+<          dnrad(i)  = tlum /(tledd * ombeta * 4.0d0)
+<       
+<          
+---
+>          dnrad(i) = tlum / ( tledd * ombeta * 4.0d0 )
+> 
+245,274c197,198
+<      .        pbar,gbar,ptbar,pvbar,etbar,evbar,akbar,h(i),
+<      .        doux(i),alphaml,uuml,modec,i)
+<          
+<          if(dnrad(i).le.dnad(i)) then
+<             
+<          endif
+< 
+<          
+<          if( dnabv(i) .gt. 1.0d1 )then
+<             print*,'ERR(cinit): dnabv too big: xm = ',xm(i)/sol
+<             print*,'ERR(cinit): (new) dnrad,dnad,doux =',
+<      .           dnrad(i),dnad(i),doux(i)
+<             print*,'ERR(cinit): (old) dnrad,dnad,doux =',
+<      .           dnrado(i),dnado(i),douxo(i)
+<             print*,'ERR(cinit): ak(ii),ii=(i-2,i-1,i,i+1,i+2):',
+<      .           ak(i-2),ak(i-1),ak(i),ak(i+1),ak(i+2)
+<             print*,'ERR(cinit): tl(ii),ii=(i-2,i-1,i,i+1,i+2):',
+<      .           tl(nc,i-2),tl(nc,i-1),tl(nc,i),tl(nc,i+1),tl(nc,i+2)
+<             print*,'ERR(cinit): p(ii),ii=(i-2,i-1,i,i+1,i+2):',
+<      .           p(nc,i-2),p(nc,i-1),p(nc,i),p(nc,i+1),p(nc,i+2)
+<             print*,'ERR(cinit): t(ii),ii=(i-2,i-1,i,i+1,i+2):',
+<      .           t(nc,i-2),t(nc,i-1),t(nc,i),t(nc,i+1),t(nc,i+2)
+<             print*,'ERR(cinit): tlum, tle, tl(nc,i)=',tlum,tle,tl(nc,i)
+<             print*,'ERR(cinit): dnrad(tl) = ',
+<      .           tl(nc,i)/( tledd * ombeta * 4.0d0 )
+< c     print*,'ERR(cinit): 3.0/16*pi*G*a*c = ', 
+< c     .           3.0/(4.0*pi4*grav*arad*crad)
+< c            stop'cinit'           
+<          endif
+< 
+---
+>      1        pbar,gbar,ptbar,pvbar,etbar,evbar,akbar,h(i),
+>      2        doux(i),alphaml,uuml,modec,i)
+279,285c203,209
+<             nsqr(i) = ( -dnrad(i)+ dnad(i) +doux(i) )*
+<      .           (grav*xm(i)/r(nc,i)**2)**2/
+<      .           (0.5d0*( p(nc,i)*v(nc,i) + p(nc,i+1)*v(nc,i+1) ))
+< c            nsqr(i) = 1.0d0/v(nc,i)*(v(nc,i)*(v(nc,i)-v(nc,i+1))/
+< c     1           (r(nc,i)-r(nc,i+1))-(p(nc,i)-p(nc,i+1))/
+< c     1           (r(nc,i)-r(nc,i+1))/(p(nc,i)*gamma1(i)))*
+< c     1           grav*xm(i)/r(nc,i)**2.0d0
+---
+> c            nsqr(i) = ( -dnab(i)+ dnad(i) +doux(i) )*
+> c     1           (grav*xm(i)/r(nc,i)**2)**2/
+> c     1           (0.5d0*( p(nc,i)*v(nc,i) + p(nc,i+1)*v(nc,i+1) ))
+>             nsqr(i) = 1.0d0/v(nc,i)*(v(nc,i)*(v(nc,i)-v(nc,i+1))/
+>      1           (r(nc,i)-r(nc,i+1))-(p(nc,i)-p(nc,i+1))/
+>      1           (r(nc,i)-r(nc,i+1))/(p(nc,i)*gamma1(i)))*
+>      1           grav*xm(i)/r(nc,i)**2.0d0
+292,293c216,217
+<      .           (grav*(xm(kk+1)+vm(j,3))/vr(j,3)**2)**2
+<      .           *vrho(j,3)/vp(j,3)
+---
+>      1           (grav*(xm(kk+1)+vm(j,3))/vr(j,3)**2)**2
+>      1           *vrho(j,3)/vp(j,3)
+296a221
+> 
+299,300d223
+< 
+< 
+309,315d231
+<       
+< c..   ------------------------------
+< c..   NABLAS HAVE NOW BEEN REDEFINED
+< c..   ------------------------------
+<       
+<       
+< 
+316a233
+> c..   nablas now redefined
+318c235
+<       
+---
+> c..   logic flags for mixing
+320,323d236
+< c..   ----------------------------
+< c..   SETUP LOGIC FLAGS FOR MIXING
+< c..   ----------------------------
+<       
+325c238
+<          write(*,*)'ERR(cinit): modec = ',modec
+---
+>          write(*,*)'modec = ',modec
+329,334c242,246
+<       
+< c..   DEFINE WORKING ib ARRAY
+< c..   **NOW BASED ON MODEL GRADIENTS (dnrad,dnad,dndoux)
+< c..   **NOT RESULTS OF FNAB (i.e, NOT dnabv)
+<       
+< c     dnabtiny = 1.d-3
+---
+> c..   initialize to zero out possible previous values as edge moves
+>       ib(kk+nvmax(3)) = 0
+> 
+> c..   define working array ib(k) over whole model
+> c..   schwarzschild condition first
+336,339c248,249
+<          if(dnrad(i)-(dnad(i)+doux(i)).gt.1.0d-15)then
+<             ib(i) = 1           !CONVECTIVE (MLT) TEMP GRADIENT
+<          elseif( (dnrad(i) -dnad(i))  .gt.1.0d-15 )then
+<             ib(i) = 2           !SEMICONVECTIVE TEMP GRADIENT
+---
+>          if( dnabv(i) - dnad(i) .gt. 1.0d-15 )then
+>             ib(i) = 1
+341,347c251
+<             ib(i) = 0           !RADIATIVE TEMP GRADIENT
+<             if(abs(h(i)).gt.0.d0) then
+<                if(nsqr(i) .le. 0.0d0)then
+<                print*,'ERR(cinit):i,xm,ib,h,dnabla=',
+<      .              i,xm(i)/sol,ib(i),h(i),(dnrad(i)-dnad(i))
+<                endif
+<             endif
+---
+>             ib(i) = 0
+350,354c254
+< 
+< 
+< c..   BOUNDARY FLAGS: 
+< c..   1. in order to count convective core properly
+< c..   2. and zero out old values due to outer edge of mesh moving
+---
+> c..   initiate logic ib(1) = 0 so convective core is properly counted
+356,368d255
+<       ib(kk+nvmax(3)) = 0
+< 
+< 
+< 
+< 
+< 
+< 
+< c..   CALCULATE A GRADIENT RICHARDSON NUMBER OF SORTS
+< c..   AT CONVECTIVE BOUNDARIES BASED ON CONVECTION SPEED
+< c..   
+<       hsmall = 1.d0             !units: [cm/s]
+<       do i = kin,ktop-1
+<          shear(i) = 0.0d0        !only at conv bndry, otherwise 0
+370,376c257,260
+< 
+<          if(ishear .eq. 1) then            
+<             if( ib(i) .ne. 0 .and. h(i) .le. hsmall )then
+< c            if(dth(2) .gt. 1.0d0 )then
+<                shear(i) = 0.5d0*(
+<      .              ((h(i+1)-h(i))/(r(nc,i+1)-r(nc,i)))**2.0d0 +
+<      .              ((h(i)-h(i-1))/(r(nc,i)-r(nc,i-1)))**2.0d0 )
+---
+> c..   Richardson number test of "unmixing zones"
+> c..   Shear mixing at boundaries
+>       do i = kin,ktop-1
+>          if( ib(i) .ne. 0  .and. h(i) .le. 0.0d0 )then
+379,391c263,270
+<                if( shear(i) .ge. 4.0d0*nsqr(i) )then
+< c     mix on convective time scale of adjacent convective zones
+<                   h(i) = ( h(i+1) + h(i-1) )*0.5d0
+<                  
+<                elseif( shear(i) .ge. nsqr(i) )then
+< c     mix on 5 times the convective time scale (fast mixing)
+<                   h(i) = ( h(i+1) + h(i-1) )/2.0d0*5.0d0
+<                else
+< c     erosion rate depends upon stratification energy and convective power
+< c     (differential Richardson number)
+<                   h(i) = 0.5d0*shear(i)/nsqr(i)*(h(i+1)+h(i-1)) 
+<                endif
+<             endif
+---
+>             shear(i) = 0.5d0*(
+>      4           ((h(i+1)-h(i))/(r(1,i+1)-r(1,i)))**2 +
+>      5           ((h(i)-h(i-1))/(r(1,i)-r(1,i-1)))**2 )
+>             if( shear(i) .ge. 4.0d0*nsqr(i) )then
+>                ib(i) = 1
+>                h(i) = ( h(i+1) + h(i-1) )*0.5d0
+>             elseif( shear(i) .ge. nsqr(i) )then
+>                h(i) = ( h(i+1) + h(i-1) )*0.05d0
+393,394c272,274
+< c         endif
+<       enddo
+---
+> c            write(*,'(2i5,1p8e12.3)')i,ib(i),h(i),
+> c     1           ( r(nc,i+1)-r(nc,i-1) )*0.05d0/dth(2),
+> c     2           0.01d0*sound(i), nsqr(i), shear(i), shear(i)/nsqr(i)
+395a276,279
+>          endif
+>       enddo
+> c      stop'cinit aa'
+> ccccccccc
+397,400c281,282
+< c..   
+< c..   CHECK JOIN BOUNDARY STATE. IF CONV USE RESID TO AVOID ERRORS
+< c..   AT CONVERGENCE LEVEL: envelope error 0.001
+< c..   
+---
+> c..   is join boundary convective? Use resid to avoid errors at
+> c..   convergence level
+402,406c284,286
+<      .     -1.0d-3 )then
+<          write(*,*)
+<      .        'ERR(cinit.f) Inconsistent boundary condition at join',kk
+<          write(*,'(2a5,8a12)')'kk','ib','h','ddnab','dvnab','criterion',
+<      .        'resid'
+---
+>      1     -resid )then
+>          write(*,*)'Inconsistent boundary condition at join',kk
+>          write(*,'(2a5,8a12)')'kk','ib','h','ddnab','dvnab','criterion'
+408,410c288,289
+<      .        vnab(nvmax(3),3)-vnad(nvmax(3),3),
+<      .        (dnab(kk)-dnad(kk))*(vnab(nvmax(3),3)-vnad(nvmax(3),3)),
+<      .        resid
+---
+>      1        vnab(nvmax(3),3)-vnad(nvmax(3),3),
+>      2        (dnab(kk)-dnad(kk))*(vnab(nvmax(3),3)-vnad(nvmax(3),3))
+426,436c305
+<       enddo
+< 
+< 
+< c..   --------------------------------------
+< c..   LOCATE RADIATIVE-CONVECTIVE BOUNDARIES
+< c..   --------------------------------------
+<       nrczones  = 0             !convective zones
+<       nrsczones = 0             !semi-convective zones
+< c..   
+<       kcbeg     = 0
+<       kcend     = 0
+---
+>       enddo		
+438,441d306
+< c..   NOTE:
+< c..   kbeg+1 = first convectively unstable boundary
+< c..   kend   = last  convectively unstable boundary
+< c..   Therefore loop (kbeg, kend) runs over nrczones CZs
+442a308,319
+>       do k = kin,ktop-1
+> c..   isolated nonconvective zone
+>          if( ib(k-1) .eq. 1 .and. ib(k+1) .eq. 1 
+>      1        .and. ib(k) .ne. 1 )then
+>             ib(k) = 2
+>          endif
+>       enddo
+> 
+> c.....find radiative-convective boundaries........................
+>       nrczones = 0
+>       kcbeg = 0
+>       kcend = 0
+444,445d320
+<          
+< c..   BOTTOM OF CONVECTION ZONE
+446a322
+> c..   beginning of convective zone
+448c324,327
+<             kcbeg           = j-1
+---
+> c..   kbeg+1 = first convectively unstable boundary
+> c..   kend   = last  convectively unstable boundary
+> c..   so k = kbeg, kend give run over CZ
+>             kcbeg = j-1
+451,453c330,333
+< c..   TOP OF CONVECTION ZONE
+<          if( (ib(j) .eq. 1 .and. ib(j+1) .ne. 1) )then 
+<             kcend          = j+1
+---
+>          if( (ib(j) .eq. 1 .and. ib(j+1) .ne. 1) )then
+> c..   end of convective zone
+> cccccccccccc j-1 -> j
+>             kcend = j+1
+456,468d335
+<          
+< c..   BOTTOM OF SEMICONVECTIVE ZONE
+<          if(ib(j-1) .ne. 2 .and. ib(j). eq. 2) then
+<             nrsczones = nrsczones +1
+<             kscbeg(nrsczones) = j-1
+<          endif
+<          
+< c..   TOP OF SEMICONVECTIVE ZONE
+<          if(ib(j) .eq. 2 .and. ib(j+1) .ne. 2) then
+<             kscend(nrsczones) = j+1
+<          endif
+<          
+< c..   END LOOP OVER ZONES
+470a338,343
+> c      do j = 1, nrczones
+> c         write(*,'(4i5,1p8e12.3)')j,kbeg(j),kend(j),kk,
+> c     1        p(nc,kbeg(j)),p(nc,kend(j))
+> c      enddo
+> c      stop'kk'
+> 
+472a346
+> c     if( kend(nrczones) .ge. kk+nvmax(3) )then
+482,496c356,378
+< c..   **WARN: THERE SHOULD BE NO SEMI-CONVECTIVE ZONES 
+< c..   TO THE PHOTOSPHERE! STRANGER THINGS HAVE 
+< c..   PROLLY HAPPENED THO
+< c..   -------------------------------------------------
+< c..   END CONVECTION ZONES LIMITS SEARCH
+< c..   -------------------------------------------------
+< 
+< 
+< 
+< 
+< 
+< c..   ---------------------------------------
+< c..   INTEGRAL PROPERTIES OF CONVECTION ZONES
+< c..   ---------------------------------------
+< 
+---
+> c      if( nrczones .ne. 1 )then
+> c         write(*,*)'CINIT: ',nrczones,
+> c     1        ' convection zones in model at ',l,' iteration ',it
+> c      elseif( nrczones .eq. 1 )then   
+> c         write(*,*)'CINIT: ',nrczones,
+> c     1        ' convection zone in model at ',l,' iteration ',it
+> c      endif
+> c______________________________----------------------------------
+> 
+> 
+> c..   convection zones are now identified by Schwarzschild criterion
+> c.....end of find radiative-convective
+> 
+> c     bottom of CZ in envelope index
+> c     j = nvmax(3) -(kbeg(nrczones) - kk)
+> c     write(*,*)j,kbeg(nrczones)
+> c     top of CZ in envelope index
+> c     j = nvmax(3) -(kend(nrczones) - kk)+1
+> c     write(*,*)j,kend(nrczones)
+> 
+>       write(*,*)nrczones,kk
+> ccccccccc
+> c..   calculate properties for each CZ
+498d379
+<          
+500,502c381,383
+< 
+< c..   RADIUS, MASS, PRESSURE AT CONVECTIVE BASE
+< c..   (deal with inner, outer boundaries if needed)
+---
+>             write(*,*)j,kbeg(j),kend(j)
+> cccccccccc
+> c..   find bottom values for radius, mass, pressure
+504,506c385,388
+<                rbot        = r(nc,1)
+<                xmbot      = xm(1)
+<                pbot       = p(nc,2)
+---
+> c..   deal with indexing at center
+>                rbot = r(nc,1)
+>                xmbot = xm(1)
+>                pbot = p(nc,2)
+508a391
+> c..   bottom boundary on grid
+513a397
+> c..   bottom boundary in envelope
+516a401
+> c               pbot  = p(nc,i)
+521,522c406
+<             
+< c..   RADIUS, MASS, PRESSURE AT OUTER CONVECTIVE BNDRY
+---
+> c..   find top values for radius, mass, pressure
+529a414
+> ccccccccc i -> i+1 here
+536,539c421,422
+< c..   CONVECTION ZONES EXTENTS (M,R) AND PRESSURE CHANGE
+<             xmconv(j) = xmtop - xmbot
+<             rconv (j) = rtop  - rbot
+<             
+---
+>             xmconv(j) = xmtop-xmbot
+>             rconv(j)  = rtop -rbot
+543a427
+> 
+547c431,432
+<      .              'ib(kbeg)',ib(kbeg(j)),'ib(kend)',ib(kend(j))
+---
+>      1              'ib(kbeg)',ib(kbeg(j)),'ib(kend)',ib(kend(j))
+>                
+551,552c436,437
+<      .                 vnab(i,3)-vnad(i,3),vvel(i,3),vr(i,3),vtem(i,3),
+<      .                 vrho(i,3),vp(i,3),p(1,k),p(2,k)
+---
+>      1                 vnab(i,3)-vnad(i,3),vvel(i,3),vr(i,3),vtem(i,3),
+>      2                 vrho(i,3),vp(i,3),p(1,k),p(2,k)
+554a440
+> ccccccccccccccccc
+558,559c444,445
+< c..   INTEGRATE OVER CONVECTION ZONE j
+<             sumq(j)  = 0
+---
+> c..   construct integrals over CZ j
+>             sumq(j) = 0
+561,562c447,448
+<             sum1(j)  = 0
+<             sum2(j)  = 0
+---
+>             sum1(j) = 0
+>             sum2(j) = 0
+564a451
+>                
+566c453
+<                   sumke(j) = sumke(j)+0.5d0*h(k)**2*dmi(k)/xmconv(j)
+---
+>                   sumke(j) = sumke(j) + 0.5d0*h(k)**2*dmi(k)/xmconv(j)
+568c455
+<      .                 *(dnab(k)-dnad(k)-doux(k))*dmi(k)/xmconv(j)
+---
+>      2                 *(dnab(k)-dnad(k)-doux(k))*dmi(k)/xmconv(j)
+572a460,462
+> c     write(*,'(2i5,1p12e12.3)')j,k,sumq(j),
+> c     1   t(nc,k)*pt(k)/(v(nc,k)*pv(k)),g(k),
+> c     1   dnabv(k)-dnad(k)-doux(k),xmconv(j),dnabv(k)-dnad(k)
+578,579c468,469
+<      .                 0.25d0*(vvel(i,3)**2+vvel(i-1,3)**2)*
+<      .                 (vm(i-1,3)-vm(i,3))/xmconv(j)
+---
+>      1                 0.25d0*(vvel(i,3)**2+vvel(i-1,3)**2)*
+>      2                 (vm(i-1,3)-vm(i,3))/xmconv(j)
+584,586c474,476
+<      .                 grav*(xm(kk+1)+vm(i,3))/vr(i,3)**2*
+<      .                 (vnab(i,3)-vnad(i,3))
+<      .                 *(vm(i-1,3)-vm(i,3))/xmconv(j)*rconv(j)
+---
+>      1                 grav*(xm(kk+1)+vm(i,3))/vr(i,3)**2*
+>      2                 (vnab(i,3)-vnad(i,3))
+>      2                 *(vm(i-1,3)-vm(i,3))/xmconv(j)*rconv(j)
+589a480,483
+> c                  write(*,'(2i5,1p8e12.4)')j,i,g(i),vr(i,3),vvel(i,3),
+> c     1                 sum1(j)
+>                   
+>                   
+592,594c486,490
+<      .                 *vrho(i,3)/vp(i,3)*(vnab(i,3)-vnad(i,3))*
+<      .                 vcmp(i,3)
+<                   
+---
+>      1                 *vrho(i,3)/vp(i,3)*(vnab(i,3)-vnad(i,3))*
+>      2                 vcmp(i,3)
+> 
+> c     write(*,'(3i5,1p8e12.4)')j,k,i,sumke(j),sumq(j),nsqr(k)
+> ccccccccccc
+599,601c495,497
+<      .                 -(grav*(xm(kk+1)+vm(i,3))/vr(i,3)**2)**2 *
+<      .                 vrho(i,3)/vp(i,3)
+<      .                 *(vnab(i,3)-vnad(i,3))*vcmp(i,3)
+---
+>      1                 -(grav*(xm(kk+1)+vm(i,3))/vr(i,3)**2)**2 *
+>      2                 vrho(i,3)/vp(i,3)
+>      2                 *(vnab(i,3)-vnad(i,3))*vcmp(i,3)
+605,608c501,516
+<          enddo                  !END LOOP OVER CONVECTION ZONES
+<          
+<       endif                     !END CZ LOGIC
+< c..   ---------------------------------------------------------
+---
+> c            if( j .eq. 1 )then
+> c
+> c               write(*,'(3a5,12a12)')'j','kbeg','kend',
+> c     1              'mcz','rcz','ln(pb/pt)','sumke','sumq','ubar',
+> c     2              'Sczb','Sczt','omega','Nb**2','Nt**2','soundt'
+> c            endif
+>             
+> c            write(*,'(3i5,1p12e12.3)')j,kbeg(j),kend(j),
+> c     1           xmconv(j),rconv(j),
+> c     1           dlog( pratio(j) ),sumke(j),sumq(j),dsqrt(sumq(j)),
+> c     2           entrczb(j),entrczt(j),dsqrt(sumq(j))/rconv(j),
+> c     3           nsqr(kbeg(j)),nsqr(kend(j)),
+> c     4           vsound(nvmax(3)-kend(1)+kk,3)
+>             
+>          enddo
+> 
+609a518,542
+>          do j = 1,nrczones
+>             if( j .eq. 1 )then
+>                write(*,'(2a5,12a11)')'kbeg','kend','xm','dnrad','dnabv',
+>      1              'dnad','doux','XH','XHe4','T','P','V','L','h(k+1)'
+>             endif
+>             if( kbeg(j) .lt. kk )then
+>                write(*,'(2i5,1p12e11.3)')kbeg(j),kend(j),
+>      1              xm(kbeg(j)),dnrad(kbeg(j)),dnabv(kbeg(j)),
+>      2              dnad(kbeg(j)),doux(kbeg(j)),x(nnuc-1,kbeg(j)+1),
+>      3              x(nnuc,kbeg(j)+1),
+>      3              t(nc,kbeg(j)+1),p(nc,kbeg(j)+1), v(nc,kbeg(j)+1),
+>      4              tl(nc,kbeg(j)),h(kbeg(j)+1)
+> c     write(*,'(i5,1p10e11.3)')kbeg(j),
+> c     1           (x(nnuc-1,i),i=kbeg(j),kbeg(j)+9)
+> ccccccccccccccccccccccc
+> 
+> c               write(*,'(2a5,12a12)')'k','ib','h','rad','bv','ad',
+> c     1              'doux','XHe','r-ad','bv-ad'
+> c               do k = kbeg(j),kend(j)
+> c                  write(*,'(2i5,1p12e12.3)')k,ib(k),h(k),dnrad(k),
+> c     1                 dnabv(k), dnad(k),doux(k),x(nnuc,k),
+> c     2                 dnrad(k)-dnad(k),dnabv(k)-dnad(k),p(nc,k)
+> c               enddo
+>             endif
+>          enddo
+611a545,547
+> c         stop'gg'
+> cccccccccccccccccccccc
+>       endif
+612a549,560
+> ccccccccccccccccccccccccccccccccccccccc
+> c      write(*,'(3a5,12a12)')'i','ib','ic','h','dnab','dnabv','dnad',
+> c     1     'dnrad','doux','XH','XHe','n-a','x'
+> c      do i = 270, 299
+> c         write(*,'(3i5,1p12e12.3)')i,ib(i),ic(i),h(i),dnab(i),dnabv(i),
+> c     1        dnad(i),dnrad(i),doux(i),x(nnuc-1,i),x(nnuc,i),
+> c     2        dnabv(i)-dnad(i),doux(i)
+> c      enddo
+> c      write(*,'(3a5,12a12)')'i','ib','ic','h','dnab','dnabv','dnad',
+> c     1     'dnrad','doux','XH','XHe','n-a','x'
+> c      stop'cinit'
+> cccccccccccccccccccccccccccccccc
+614,616c562
+<       
+< c..   RESET INNER BOUNDARY ZONE CONDITION
+< c..   NOW THAT COUNTING IS DONE
+---
+> c..   inner zone boundary
+618,630d563
+<       
+<       
+< c..   
+< c..   !!!! DEBUG:  ELIMINATING THIS CRITERIA
+< c..   
+< c..   DO NOT ALLOW FOR ISOLATED CONVECTION ZONES
+<       do i = kin,ktop-1
+<         if( ib(i) .eq. 0 )then
+<           if( ib(i-1) .eq. 1 .and. ib(i+1) .eq. 1 )then
+<             ib(i) = 1
+<           endif
+<         endif
+<       enddo
+631a565
+> c..   no isolated nonconvective zone
+633,637c567,571
+<         if( ib(i) .eq. 1 )then
+<           if( ib(i-1) .eq. 0 .and. ib(i+1) .eq. 0 )then
+<             ib(i) = 0
+<           endif
+<         endif
+---
+>          if( ib(i) .eq. 0 )then
+>             if( ib(i-1) .ne. 0 .and. ib(i+1) .ne. 0 )then
+>                ib(i) = 1
+>             endif
+>          endif
+639,641d572
+<       
+<       
+< c..   SAVE ENTRIES
+643,644c574,578
+< c..   FIRST RUN, FIRST STEP
+<       if(l.le.1.and.nc.eq.1)then
+---
+> c..   save entry values
+> 
+> c..   first value in this run
+> c..   first value for this step
+>       if( it .eq. 0 .and. l .le. 1 .and. nc .eq. 1 )then
+646a581
+> c..   initialize previous value to present trial value, first time only
+649d583
+<       endif
+650a585,591
+>       elseif( it .eq. 0 )then
+> c..   last converged value, prev. ic -> ip
+>          do i = kin,ktop+1
+>             ip(i) = ic(i)
+> 
+>          enddo
+>       endif
+652c593
+< c..   COUNT NUMBER OF ZONES WHICH CHANGED CONVECTIVE STATE
+---
+> c..   number of zones which changed, this iteration
+661,671c602,624
+<       
+<       
+< c..   COPY REVISED CONVECTIVE STATE ARRAY TO ic(k)
+< c..   ib -> ic
+<       do i = kin,ktop
+<          ic(i) = ib(i)
+<       enddo
+<       
+<       
+< c..   COUNT ZONES CHANGING CONVECT STATE THIS STEP
+< c..   (IF CALLED FROM HSTAT.f)
+---
+> 
+> c..   reset global array ic(k) with revised values
+> c      if( it .eq. 0 )then   
+> 
+> c      write(*,*)'cinit ',it
+> c      stop'bbb'
+> 
+> c      if( it .lt. 0 )then
+> ccccccccccccccccccccccccccccccccccccccccccccccccccc
+> c..   cmix.f 
+> c..   reset ia -> ic
+> c         do i = kin,ktop
+> c            ic(i) = ia(i)
+> c         enddo
+> c      else 
+> c..   hstat.f
+> c..   reset ib -> ic
+>          do i = kin,ktop
+>             ic(i) = ib(i)
+>          enddo
+> c      endif
+> 
+> c..   number of zones which change their convective condition, this step
+672a626
+> c..   called from hstat.f
+680d633
+<       
+683c636
+< c..   MODE: NO CONVECTION, ONLY RAD DIFF
+---
+> c..   forces no convection, only radiative diffusion
+689d641
+<       
+690a643,647
+> ccccccccccccccccccccccccccc
+> c      write(*,'(10(10i1,1x))')(ic(k),k=1,kk)
+> c      write(*,'(1p10e11.2)')(h(k),k=100,109)     
+> c      write(*,*)'LEAVING CINIT'
+> cccccccccccccccccccccccccc
+692d648
+< c     SUCCESS
+694d649
+< c     

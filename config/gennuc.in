@@ -1,0 +1,16 @@
+'.....................................................................'
+' GENNUC: for TYCHO-6.4                                               '
+'.....................................................................'
+' Display device: /ps, /xwin ................' 'device'   '12/xwin'
+' graph: 0=lineout,1=elements,2=processes....' 'istyle'    0
+' Line style.0=solid line, else dots.........' 'linesty'   0
+' Change needed to graph nucleus (0.0d0=all).' 'deltay'    0.1d0
+' Number of models to plot...................' 'imods'     1
+' Filename of model..........................' 'cmod'     '0149147'
+' Variable flag for x axis..(see getvec.f)...' 'cvarx'    'xm'
+' minimum log Yi for x axis..................' 'xmin'     0.
+' maximum log Yi for x axis..................' 'xmax'     0.
+' minimum log Yi for y axis..................' 'ymin'     -5.
+' maximum log Yi for y axis..................' 'ymax'     0.
+' note                                                                '
+'.....................................................................'

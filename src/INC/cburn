@@ -1,0 +1,49 @@
+
+c..include file for common cburn
+c..must follow dimenfile
+c..see also file cnetrc
+c..dlibeb is flag for light element burning; automatically inferred
+c..from network
+      real*8    xa(ndim), nucz(ndim), nuca(ndim)
+      integer*4 iburnop,ncytot,netsize,dlibeb
+      common/cburn/xa,nucz,nuca,iburnop,ncytot,netsize,dlibeb
+
+      integer*4   lz(ndim), ln(ndim), newnet, nucpg
+c..limit of margins in pgplot for nuclei id's
+      parameter( nucpg = 60 )
+      integer*4 nucp(nucpg), mnucpg
+      character*5 cnuc(ndim)
+      real*8      qex(ndim), solarx(ndim), gspin(ndim)
+c..weak screening zeta
+c      real*8 wszeta(kdm)
+ccccccccccccccccccccccccccccccccccccccccc
+
+c..indices for C12, N14 and O16 for OPAL
+      integer*4 lc12,ln14,lo16
+c..indices for deuterium, tritium, li7, be9, b10, b11
+c..needed for loburn and rezoning
+      integer*4 ldeut,ltrit,lli7,lbe9,lb10,lb11
+c..needed for state
+      integer*4 lhe3
+c..needed for solar tests
+      integer*4 lc13,lo18
+c..nucleus and reaction link needed for state and solven
+      integer*4 lal26,lkal26
+c..nucleus and reaction link needed for alpha tracking
+      integer*4 lne20,lmg24,lsi28
+ccccccccccccccccccccccccccccccccccccccccccccccccc
+c      common /cnetrc/qex, solarx, gspin, wszeta,
+      common /cnetrc/qex, solarx, gspin,
+     1 lz,ln,newnet,nucp,mnucpg,lc12,lo16,ln14, 
+     2 ldeut,ltrit,lli7,lbe9,lb10,lb11,lhe3,lc13,lo18,lal26,
+     3 lkal26,lne20,lmg24,lsi28,
+     4 cnuc
+
+
+      real*8 tburnlo, tburnd, tqse, tnse
+c..cccccccc.force no nse, qse.cccc....................c..........c
+      parameter(tburnlo=1.0d-2,tburnd=5.0d-4,tnse=5.0d1,tqse=4.7d1)
+
+c..   fkt if T9>0.01 = 1e7 K
+c..   only decay if T9< 5.0d-4 = 5e5 K
+c..   loburn otherwise

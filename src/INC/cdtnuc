@@ -1,0 +1,10 @@
+
+c..include file cdtnuc
+
+      real*8    tau(3)
+      real*8    delchi, chimin, fdtn, fdysum
+
+      integer*4 ndth
+
+      common /cdtnuc/tau, delchi, chimin, fdtn, fdysum,
+     1 ndth

@@ -1,0 +1,16 @@
+'.....................................................................'
+' HRPLOT: for TYCHO6                                                  '
+'.....................................................................'
+' Display device: /ps, /xwin ................' 'device' '/ps'
+' Journal format(0=no,else surpress comment).' 'journal'  0
+' Number of sequences to plot................' 'nfiles'   1
+' Filename of sequence.......................' 'hrfile'   'hr.a5'
+' 0 gives -logTe,logL,else logR,logL.........' 'iradii'	   1
+' minimum for x axis.........................' 'xmin'     0.1
+' maximum for x axis.........................' 'xmax'     0.4
+' minimum for y axis.........................' 'ymin'     0.7d0
+' maximum for y axis.........................' 'ymax'     1.0d0
+' Line style.1=solid line, else dots.........' 'linesty'   1
+' Some observational points? (0=no)..........' 'iobs'      0
+'.....................................................................'
+

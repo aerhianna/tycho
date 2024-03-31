@@ -1,0 +1,7 @@
+
+c..include file czontst
+c..contains characters indicating rezoning logic from zone
+c..must follow dimenfile
+
+      character ch,cadd,cnull,cdel
+      common/czontst/ch(kdm)

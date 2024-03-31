@@ -1,0 +1,44 @@
+
+c..include file csurface
+
+c..surface boundary condition constructed from envelope integrations
+c..in fitenv.f
+
+c..radius is photospheric radius
+c..rarget is outer radius of henyey grid (radius at join)
+
+c..   epi is pressure at kk+1/2 (just outside join radius)
+c..   tau is temperature  at kk+1/2 (just outside join radius)
+c..   their derivatives for henyey iteration:
+c..   dpidl is d(epi)/dL(join) with R(join) constant
+c..   dpidl is d(epi)/dL(join) with R(join) constant
+c..   dtaudr is d(tau)/dR(join) with L(join) constant
+c..   dtaudr is d(tau)/dR(join) with L(join) constant
+c..   rarget is reference radius at join, used in hstat.f
+
+      real*8 t0,v0,tledd,dleddl,dleddr,dleddt,dleddv,aks,r0,
+     1 radius,xtlum,target,varget, dpidl,dpidr,dtaudl,dtaudr,epi,etau,
+     2 dvidr,dvidl,evi,vave,enab,enrad,enad,rarget,eent
+
+      real*8 dccdl,dccdr,denabdl,denabdr,deentdl,deentdr
+
+c..dppdl = d ln pi / d L at constant photospheric radius
+c..dppdr = d ln pi / d R at constant luminosity
+c..dttdl = d ln tau / d L
+c..dttdr = d ln tau / d R
+c..drrdl = d ln r(join) / d L
+c..drrdr = d ln r(join) / d R
+
+      real*8    dppdl,dppdr,dttdl,dttdr,drrdl,drrdr
+
+      real*8    dlnpidl,dlnpidr,dlntaudl,dlntaudr,piln,tauln,
+     1	        enchi,enchidl,enchidr,enabdl,enabdr,eentdl,eentdr
+
+      common/csurface/t0,v0,tledd,dleddl,dleddr,dleddt,dleddv,aks,r0,
+     1 radius,xtlum,target,varget, dpidl,dpidr,dtaudl,dtaudr,epi,etau,
+     2 dvidr,dvidl,evi,vave,enab,enrad,enad,rarget,eent,
+     3 dppdl,dppdr,dttdl,dttdr,drrdl,drrdr
+
+	common/csurface1/dccdl,dccdr,denabdl,denabdr,deentdl,deentdr,
+     1	dlnpidl,dlnpidr,dlntaudl,dlntaudr,piln,tauln,
+     2  enchi,enchidl,enchidr,enabdl,enabdr,eentdl,eentdr

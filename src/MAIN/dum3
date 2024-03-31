@@ -1,0 +1,20 @@
+2c2
+<       subroutine cmix(mix,kxmx,dthc,nc)
+---
+>       subroutine cmix(mix,kxmx,dthc)
+177c177
+<       call pay(nc)
+---
+>       call pay
+222,225c222
+<          
+<          dmom(k) =a(k)*h(k)*dthc*0.5d0*
+<      1       (1.0d0/v(1,k)+1.0d0/v(1,k+1))
+<          
+---
+>          dmom(k) =a(k)*h(k)*dthc*0.5d0*(1.0d0/v(1,k)+1.0d0/v(1,k+1))
+268,269c265
+< c            sum = sum + x(j,k)*xa(j)
+<             sum = sum + x(j,k)
+---
+>             sum = sum + x(j,k)*xa(j)
