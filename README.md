@@ -58,6 +58,56 @@ cd src/PGPLOT
 sudo chmod +x makemake makedoc makehtml makehelp maketex
 ```
 
+**MacOS**
+
+Install the [Homebrew package manager](https://brew.sh/).
+
+```
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+Use Homebrew to install the necessary compilers to build Tycho on your Mac
+
+```
+brew install gcc gfortran make
+```
+
+Ensure `gcc` installed correctly
+
+```
+% gcc --version
+
+Apple clang version 15.0.0 (clang-1500.1.0.2.5)
+Target: x86_64-apple-darwin22.6.0
+Thread model: posix
+InstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin
+```
+
+Ensure `gfortran` installed correctly
+
+```
+% gfortran --version
+
+GNU Fortran (Homebrew GCC 13.2.0) 13.2.0
+Copyright (C) 2023 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+```
+
+Ensure `make` installed correctly
+
+```
+% make --version
+
+GNU Make 3.81
+Copyright (C) 2006  Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.
+There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A
+PARTICULAR PURPOSE.
+
+This program built for i386-apple-darwin11.3.0
+```
+
 ## Directory Structure:
 
 After unpacking the tarball you will see a root directory called tycho-spring21/ *(NOTE: This repo is the unpacked version)*. Beneath this are

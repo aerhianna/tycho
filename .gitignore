@@ -1,5 +1,7 @@
 # Personal configurations
 src/makefile.env
+pgplot_env.csh
+pgplot_env.sh
 
 # PGPLOT Source Code
 pgplot.tar.gz
