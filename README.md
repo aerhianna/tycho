@@ -60,6 +60,9 @@ sudo chmod +x makemake makedoc makehtml makehelp maketex
 
 **MacOS**
 
+> [!CAUTION]
+> The instructions for MacOS are still incomplete
+
 Install the [Homebrew package manager](https://brew.sh/).
 
 ```
