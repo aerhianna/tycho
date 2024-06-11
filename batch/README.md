@@ -1,6 +1,6 @@
 # Tycho Batch Runner
 
-Configure multiple Tycho simulations to run one after the other. Save time on resets/reconfigurations between runs!
+Configure multiple Tycho simulations to run one after the other. Save time on resets/reconfigurations between runs! 
 
 ## Usage
 
@@ -13,13 +13,21 @@ Python 3.10.13
 
 If you get an error, you will need to [install Python](https://www.python.org/downloads/).
 
+### Install GhostScript
+
+```bash
+$ sudo apt install ghostscript
+```
+
+GhostScript converts PGPLOT's postscript output to PDFs. 
+
 ### Create a CSV file with one line per run you want to execute.
 
 ```csv
-base_model,genex.fm,genex.fr,genex.omegbar,params.prefix,metadata.label
-a000000,0.7,0.7,4.34d-9,'D1',Simulation 1
-a000000,0.8,0.8,5.42d-9,'D2',Simulation 2
-a000000,0.7,1.0,5.75d-9,'D3',Simulation 3
+base_model,genex.fm,genex.fr,genex.omegbar,params.prefix,hrt.device,hrt.hrfile,metadata.label
+a000000,0.7,0.7,4.34d-9,'D1','/ps','hr.D1',Simulation 1
+a000000,0.8,0.8,5.42d-9,'D2','/ps','hr.D2',Simulation 2
+a000000,0.7,1.0,5.75d-9,'D3','/ps','hr.D3',Simulation 3
 ```
 
 `base_model` names the model file to use as the starting point for the simulation.
@@ -29,6 +37,9 @@ a000000,0.7,1.0,5.75d-9,'D3',Simulation 3
 
 `params.*` refers to the variables you want to set in the `params.d` config file.
  - For example, `params.igraf` will set the value of the variable `igraf` within `params.d`
+
+`hrt.*` refers to the variables you want to set in the `hrt.in` config file.
+ - For example, `hrt.iyvar` will set the value of the variable `iyvar` within `hrt.in`
 
 `metadata.*` are custom columns with data relevant to your organization. They are ignored by the batch runner.
 

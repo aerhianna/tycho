@@ -1,4 +1,4 @@
-# Copyright (c) 2024 Joseph Hale
+# Copyright (c) 2024 Joseph Hale, Laura Pang
 # 
 # This Source Code Form is subject to the terms of the Mozilla Public
 # License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -93,6 +93,8 @@ class ConfigUpdater:
             self._update_genex(self.updates["genex"])
         if "params" in self.updates:
             self._update_params(self.updates["params"])
+        if "hrt" in self.updates:
+            self._update_hrt(self.updates["hrt"])
 
     def _update_root(self, updates: dict):
         if "base_model" in updates:
@@ -106,6 +108,9 @@ class ConfigUpdater:
 
     def _update_params(self, updates: dict):
         self._update_config("params.d", updates)
+
+    def _update_hrt(self, updates: dict):
+        self._update_config("hrt.in", updates)
 
     def _update_config(self, config_name: str, updates: dict):
         config_path = Path(self.rundir, config_name)
@@ -122,12 +127,13 @@ class ConfigUpdater:
             f.write(str(config))
 
 
-def run_simulation(rundir: str):
+def run_simulation(rundir: str, updates: dict):
     os.chdir(rundir)
     subprocess.run(["./genex"])
     shutil.copy("new.model", "imodel")
     subprocess.run(["./tycho8"])
-
+    subprocess.run(["./hrt"])
+    subprocess.run(['ps2pdf','pgplot.ps', updates['params']['prefix']+'.pdf'])
 
 if __name__ == "__main__":
     import sys
@@ -138,4 +144,4 @@ if __name__ == "__main__":
         for line in csv:
             updates = parse_csv_line(line)
             ConfigUpdater(updates, args["rundir"], args["modeldir"]).update()
-            run_simulation(args["rundir"])
+            run_simulation(args["rundir"], updates)
