@@ -43,11 +43,11 @@ a000000,0.7,1.0,5.75d-9,'D3','/ps','hr.D3',Simulation 3
 
 `metadata.*` are custom columns with data relevant to your organization. They are ignored by the batch runner.
 
-> **TIP**
+> [!TIP]
 >
-> The CSV above is merely a sample CSV. You can use the batch CSV to update any field in the supported configs. You can also add additional metadata columns `meta.*`
+> The CSV above is merely a sample CSV. You can use the batch CSV to update any field in the supported configs. You can also add additional metadata columns `metadata.*`
 
-> **NOTE**
+> [!NOTE]
 > 
 > No other config files are supported yet, but can be added easily to `ConfigUpdater.update`.
 
