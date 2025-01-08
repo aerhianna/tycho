@@ -62,8 +62,22 @@ sudo chmod +x makemake makedoc makehtml makehelp maketex
 
 > [!CAUTION]
 > The instructions for MacOS are still incomplete
+>
+If you are using macOS you will need to install
+   - Xcode from the app store
+   - the Xcode command line tools by entering sudo xcode-select —install on the command
+  line
+   - XQuartz https://www.xquartz.org
+   - Mac users will also need to download and install a fortran compiler. The easiest one is
+located at http://hpc.sourceforge.net/. Get the gcc package for your version of macOS and processor (M series or Intel). GCC comes
+with gfortran) and follow the instructions on the website.
 
-Install the [Homebrew package manager](https://brew.sh/).
+Two security settings will need to be checked.
+1) Under System Settings -> Privacy & Security set Allow Applications downloaded from App Store and identified developers
+2) Under System Settings -> Privacy & Security -> Developer Tools allow the Terminal to run software locally that does not meet the system's security policy.
+
+As an alternative, you can Install the [Homebrew package manager](https://brew.sh/) and use it to install gcc and gfortran. 
+This has extra steps, but Homebrew can be useful for installing other software packages.
 
 ```
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
