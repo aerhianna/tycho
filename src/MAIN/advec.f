@@ -281,7 +281,7 @@ cccccccccccccccccccc
 
 c         dmasdt = -1.0d-2 * sol/secpy
 c         peryear = dmasdt*secpy/sol
-c         peryear = peryear*1.0d4
+         peryear = peryear*3.0d-1
          
          return
 
