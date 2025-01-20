@@ -1,3 +1,4 @@
+#Tycho comes with its own distribution of PGPLOT. This files is retained for reference only.
 # Download + Extract to src/PGPLOT
 pgplotdir=src/PGPLOT
 [ ! -f pgplot.tar.gz ] && curl ftp://ftp.astro.caltech.edu/pub/pgplot/pgplot5.2.tar.gz --output pgplot.tar.gz
