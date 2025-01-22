@@ -10,9 +10,7 @@ requires fortran and c compilers.
    - the Xcode command line tools by entering sudo xcode-select —install on the command
   line
    - XQuartz https://www.xquartz.org
-   - Mac users will also need to download and install a fortran compiler. The easiest one is
-located at http://hpc.sourceforge.net/. Get the gcc package for your version (this comes
-with gfortran) and follow the instructions on the website.
+   - Mac users will also need to download and install a fortran compiler. See the instructions below for installing with Homebrew.
 
 **Linux (WSL)**
 ```
@@ -60,24 +58,21 @@ sudo chmod +x makemake makedoc makehtml makehelp maketex
 
 **MacOS**
 
-> [!CAUTION]
-> The instructions for MacOS are still incomplete
->
 If you are using macOS you will need to install
    - Xcode from the app store
    - the Xcode command line tools by entering sudo xcode-select —install on the command
   line
    - XQuartz https://www.xquartz.org
-   - Mac users will also need to download and install a fortran compiler. The easiest one is
-located at http://hpc.sourceforge.net/. Get the gcc package for your version of macOS and processor (M series or Intel). GCC comes
-with gfortran) and follow the instructions on the website.
+   - Mac users will also need to download and install a fortran compiler. 
 
 Two security settings will need to be checked.
 1) Under System Settings -> Privacy & Security set Allow Applications downloaded from App Store and identified developers
 2) Under System Settings -> Privacy & Security -> Developer Tools allow the Terminal to run software locally that does not meet the system's security policy.
+By default macOS does not allow unsigned executables to run as a
+security measure. If you do not see the options above, most likely because you are running an old version of macOS,
+enter sudo spctl —master-disable at the command line.
 
-As an alternative, you can Install the [Homebrew package manager](https://brew.sh/) and use it to install gcc and gfortran. 
-This has extra steps, but Homebrew can be useful for installing other software packages.
+You can Install the [Homebrew package manager](https://brew.sh/) and use it to install gcc and gfortran. 
 
 ```
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -140,11 +135,6 @@ subdirectories. The ones you are most likely to use are:
 ## Compilation and Setup:
 
 TYCHO uses GNUmake to compile the code, build libraries, and create executables.
-
-(Note for macOS users: By default macOS does not allow unsigned executables to run as a
-security measure. In order to run Tycho you will need to go to the Security pane of system
-preferences and choose Allow Apps downloaded from: Anywhere. If you do not see this option,
-enter sudo spctl —master-disable at the command line.)
 
 1. Set up the makefile for your computer. The following command should grab the correct template for your operating system.
    
