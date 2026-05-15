@@ -21,7 +21,7 @@ c..these values apply to latest reaclib
       parameter(nzmax = 112, nnmax =233)
 c      parameter(niso = 5410)
 c      parameter( nzmax=112,nnmax=225)
-      integer*4 ncharge
+      integer*4 ncharge, nnucleon, nnucleon11
       dimension p(7)
       character*5 lkh
       character*5 nam(6),inam(niso),blank,rnam(6)
@@ -750,7 +750,7 @@ c         endif
          endif
 c..check reaction identities
          if( nnucleon .ne. 0 )then
-           write(*,*)'nucleon nonconservation',ktype
+           write(*,*)'nucleon nonconservation',ktype,rnam,nnucleon
            stop
          endif
          if( ncharge .gt. 1 .or. ncharge .lt. -1 )then
@@ -1020,13 +1020,15 @@ c--deck 11--Added decks 9, 10, 11. PAY 7/13
            izr(5) = 0
            inr(5) = 0
          endif
-
+         
          ncharge  = izr(5) - izr(4)
      1            - izr(3) - izr(2) - izr(1)
-         nnucleon = ncharge
-     1            + inr(5) - inr(4)
-     2            - inr(3) - inr(2) - inr(1)
-         if( ibug .ne. 0 )then
+         write(*,*)inr(1),inr(2),inr(3),inr(4),inr(5),
+     1        ncharge,nnucleon
+         nnucleon = ncharge + inr(5)
+     1              + inr(4) + inr(3)
+     1              + inr(2) - inr(1)
+         if(ibug .ne. 0)then
           write(*,'(6(a5,2i3,i4,2x),2i5,1x,a4,2a1)')
      1        rnam(1),izr(1),inr(1),id(1),
      1        rnam(2),izr(2),inr(2),id(2),
@@ -1044,7 +1046,7 @@ c--deck 11--Added decks 9, 10, 11. PAY 7/13
          endif
 c..check reaction identities
          if( nnucleon .ne. 0 )then
-           write(*,*)'nucleon nonconservation',ktype
+           write(*,*)'nucleon nonconservation',ktype,izr,inr,ncharge,nnucleon
            stop
          endif
          if( ncharge .gt. 1 .or. ncharge .lt. -1 )then

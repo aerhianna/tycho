@@ -178,8 +178,9 @@ c..   position to desired timestep to avoid overwrite
          write(3,*)'reading cv file at l =',l,' model =',model
          write(*,*)'reading cv file at l =',l,' model =',model, 
      1        ' inmodel =', inmodel
-         if(model .gt. 1)then
+         
 c         if(inmodel .ge. model-1)then
+         if(model .gt. 1)then
 c         if( iloop .eq. 1 )then
          rewind 11
 c         endif

@@ -210,15 +210,15 @@ c     print *,'tauc/taug ratio should be near 0.41 [Landin et al.]'
 c     print *,'tauc/taug ...............= ',tauc/taug
 
 c     ROSSBY NUMBER (eqn just below eq.1 in B.O., or fig.8 in Landin)
-      rossby = 2.d0*pi/omeg(kk+1)/tauc
-      rossby = 2.d0*pi/omeg(kk)/tauc
-      rossby = 2.d0*pi/bosurfomeg/tauc
+      rossby = 2.d0*pi/omeg(kk+1)/taug
+c      rossby = 2.d0*pi/omeg(kk)/taug
+c      rossby = 2.d0*pi/bosurfomeg/taug
       print *,'rossby...................= ',rossby
 
 c     equation for shear from just below eq.9 in B.O.
       xshear = omeg(kk+1)/ABS(omeg(kk+1)-omeg(kbegnrc))
       xshear = omeg(kk)/ABS(omeg(kk)-omeg(kbegnrc))
-      xshear = 8.3
+c      xshear = 8.3
       print *,'B.O. use fixed shear of 8.3 in Section 6.1'
       print *,'xshear...................= ',xshear
 
@@ -245,7 +245,7 @@ c     br = gL * (solrad/r(1,kk+1))**2.
 
 c	  equation 26 in B.O. gives the x-ray luminosity as function of magnetic field strength:
 	  lx = br**(4./(1. - lambda))
-c     print *,'lx ......................= ',lx
+      print *,'lx ......................= ',lx
 
 c     computing convective luminosity, taken from line 468 in getvec.f
 c..   implied convective luminosity = L - L(radiative)
@@ -359,7 +359,8 @@ c     equation 18: x-ray radiation flux
 c     Fx should increase with increasing Tnot (and pressure):
 
       fx = 1.24d6 * (pnot)**2.*(1./Tnott)**(5./3.)
-     1         * (r(1,kk+1)/solrad)**2. * sol/xm(kk+1)
+     1* (r(1,kk+1)/solrad)**2. * sol/xm(kk+1)
+      print *,'fx ',fx,Fx_sun
 c     print *,'fx/fx_sun ...............= ',fx/Fx_sun
 
 c     Lx == 4*pi*R^2 * Fx
@@ -370,6 +371,7 @@ c     print *,'bigLx/Lx_sun ............= ',bigLx/Lx_sun
       lratio = ABS(bigLx/Lx_sun - lx)/lx
 
       write(56,*) i,lx,bigLx/Lx_sun,lratio,pnot,Tnott
+      print *, i,lx,bigLx/Lx_sun,lratio,pnot,Tnott
 
 c     send new lx value back into start of convergence loop:
 c      lx = bigLx/Lx_sun

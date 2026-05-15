@@ -137,7 +137,7 @@ c         if(inmodel .ge. model-1)then
          if(model .gt. 1)then
 c         if( iloop .eq. 1 )then
             rewind 77
-         if(inmodel .eq. model) then
+        if(inmodel .eq. model) then
          goto 150
          endif
             iloop = 1

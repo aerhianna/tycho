@@ -22,7 +22,7 @@ c..   dady d log kappa/d log T(K)
       include 'calex'
 
       integer*4 mm, nn
-      parameter( mm = 85, nn=19 )
+      parameter( mm = 67, nn=19 )
       real*8 aa(nn,mm), lropal(nn), tlg(mm),
      1       aa2(nn,mm), lropal2(nn), tlg2(mm),
      1       aa3(nn,mm), aa4(nn,mm), lropal3(nn), tlg3(mm),
@@ -195,13 +195,13 @@ c..   clean up temporary file
          enddo
 
 c..   Ropal variable
-         read(30,'(6x,0p19f7.3)')lropal
+         read(30,'(7x,0p19f8.4)')lropal
 c         read(30,'(a77)')dummy
 c         read(30,'(a77)')dummy
 
 c..   TLG and log kappa(ropal,TLG)
          do jt = 1,mm
-            read(30,'(0pf5.3,1x,0p19f7.3)')tlg(jt),(aa(n,jt),n=1,nn)
+            read(30,'(0pf6.4,1x,0p19f8.4)')tlg(jt),(aa(n,jt),n=1,nn)
          enddo
 
 c.. Get table from next higher metallicity to perform z
@@ -217,13 +217,13 @@ c         read(30,'(a77)')dummy
          enddo
 
 c..   Ropal variable
-         read(30,'(6x,0p19f7.3)')lropal3
+         read(30,'(7x,0p19f8.4)')lropal3
 c         read(30,'(a77)')dummy
 c         read(30,'(a77)')dummy
 
 c..   TLG and log kappa(ropal,TLG)
          do jt = 1,mm
-            read(30,'(0pf5.3,1x,0p19f7.3)')tlg3(jt),(aa3(n,jt),n=1,nn)
+            read(30,'(0pf6.4,1x,0p19f8.4)')tlg3(jt),(aa3(n,jt),n=1,nn)
          enddo
 c.. Get table from next higher hydrogen fraction, same z, to
 c.. perform interpolation
@@ -241,13 +241,13 @@ c..
             read(30,'(a77)')dummy
          enddo
 c..   Ropal variable
-         read(30,'(6x,0p19f7.3)')lropal2
+         read(30,'(7x,0p19f8.4)')lropal2
 c         read(30,'(a77)')dummy
 c         read(30,'(a77)')dummy
          
 c..   TLG and log kappa(ropal,TLG)
          do jt = 1,mm
-            read(30,'(0pf5.3,1x,0p19f7.3)')tlg2(jt),(aa2(n,jt),n=1,nn)
+            read(30,'(0pf6.4,1x,0p19f8.4)')tlg2(jt),(aa2(n,jt),n=1,nn)
          enddo
          
 c.. Get table from next higher metallicity to perform z
@@ -263,13 +263,13 @@ c..
          enddo
 
 c..   Ropal variable
-         read(30,'(6x,0p19f7.3)')lropal4
+         read(30,'(7x,0p19f8.4)')lropal4
 c         read(30,'(a77)')dummy
 c         read(30,'(a77)')dummy
          
 c..   TLG and log kappa(ropal,TLG)
          do jt = 1,mm
-            read(30,'(0pf5.3,1x,0p19f7.3)')tlg4(jt),(aa4(n,jt),n=1,nn)
+            read(30,'(0pf6.4,1x,0p19f8.4)')tlg4(jt),(aa4(n,jt),n=1,nn)
          enddo
 
          close(30)

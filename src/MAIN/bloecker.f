@@ -17,7 +17,7 @@ c---------------------------------------------------------------
       real*8 P,Plog,reimersmdot,Prat,Trat
       real*8 vesc,M,R,g,c,a,b,vratio
       
-      parameter(c = 5.5d-13)
+      parameter(c = 5.5d-14)
       parameter(a = -1.9777d-1)
       parameter(b = 1.1681d0)
       
@@ -61,10 +61,10 @@ c.. Bloeker pulsational mass loss condition
             xmdot = 4.83d-9 * totmass**(-2.1) * tlum**2.7 
      1      * reimersmdot * Trat + reimersmdot
           else
-            xmdot = (1.0d0 - Prat)**4.0*4.83d-9 * totmass**(-2.1) 
-     1              * tlum**2.7  * reimersmdot * Trat**4.0 + reimersmdot
 c            xmdot = (1.0d0 - Prat)**4.0*4.83d-9 * totmass**(-2.1) 
-c     1              * tlum**2.7  * reimersmdot * Trat + reimersmdot
+c     1              * tlum**2.7  * reimersmdot * Trat**4.0 + reimersmdot
+            xmdot = (1.0d0 - Prat)**4.0*4.83d-9 * totmass**(-2.1) 
+     1              * tlum**2.7  * reimersmdot * Trat + reimersmdot
           endif
         else
           xmdot = reimersmdot
@@ -73,7 +73,7 @@ c     1              * tlum**2.7  * reimersmdot * Trat + reimersmdot
         xmdot = reimersmdot
       endif 
       
-      xmdot = xmdot*zmetal/1.48d0
+      xmdot = xmdot*zmetal/1.54d0
       return
       end
 

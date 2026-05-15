@@ -127,7 +127,7 @@ c----------------------------------------------------------------------
 
 c..   keep tolerance for envelope integration at 0.03 (or less) of that
 c..   for model convergence
-      eps = 3.0d-3 * resid
+      eps = 3.0d-2 * resid
 
 c..   epsilon is finite difference step size
 c..   epsilon = 0.015 was original choice; read by gen

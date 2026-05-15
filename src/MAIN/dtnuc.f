@@ -116,7 +116,7 @@ c..   guess at best time step
             if( y(n) .gt. chimin )then
                fak = b(n)
                if( fak .ne. 0.0d0 )then
-                  taug  =  dabs( ( 1.0d-3 + y(n) )/fak )*delchi*dth0
+                  taug  =  dabs( ( 1.0d-4 + y(n) )/fak )*delchi*dth0
                else
                   taug = tau(1)
                endif
@@ -125,7 +125,7 @@ c..   guess at best time step
                   nucleu = n
                endif
 c            elseif( y(n) .gt. 1.0d-15 )then
-            elseif( y(n) .gt. 1.0d-6 )then
+           elseif( y(n) .gt. 1.0d-6 )then
                fak = b(n)
                if( fak .ne. 0.0d0 )then
 c..delchi = 1 for very low abundances (try to avoid negative y)

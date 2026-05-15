@@ -57,7 +57,7 @@ c..no mass loss with explicit hydro
 c..   MASS LOST FROM STAR----------------------------
          adtl = abs( tl(1,ks) - tl(1,ks-1) )
          astl = abs( tl(1,ks) )  + abs( tl(1,ks-1) )
-         if( adtl .gt. 1.0d-1*astl )then
+         if( adtl .gt. 5.0d-1*astl )then
 c..   model not settled
             write(*,'(1p2e11.3,a40)')    adtl,astl,
      1           ' = adtl,astl, mass loss SUPPRESSED'

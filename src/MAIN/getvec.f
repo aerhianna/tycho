@@ -63,7 +63,7 @@ c----------------------------------------------------------------------
          do k = 2, kmax+1
             cxlabel = 'rho(g/cc)'
             if( v(1,k) .gt. 0.0d0 )then
-               xx(k-1) = 1.0d0/ v(1,k) 
+               xx(k-1) = 1.0d0/v(1,k)*(r(1,k)**3)
             else
                xx(k-1) = 0.0d0
             endif
@@ -84,11 +84,11 @@ c----------------------------------------------------------------------
          do k = 2, kmax+1
             xx(k-1) = entropy(k)
          enddo
-      elseif( cvarx .eq. 'nrg' )then
-         cxlabel = 'Energy/g'
-         do k = 2, kmax+1
-            xx(k-1) = e(2,k)
-         enddo
+c      elseif( cvarx .eq. 'nrg' )then
+c         cxlabel = 'Energy/g'
+c         do k = 2, kmax+1
+c            xx(k-1) = e(k)
+c         enddo
 
 
       elseif( cvarx .eq. 'lgp' )then
@@ -242,11 +242,11 @@ c..   edge values: join and photosphere
          cxlabel = 'log R(cm)'
          do k = 2, kmax
             if( r(1,k) .gt. 0.0d0 )then
-               xx(k-1) = dlog10( 0.5d0*(r(1,k-1) + r(1,k)) )
+               xx(k-1) = dlog10( (0.5d0*(r(1,k-1) + r(1,k))))
             else
                xx(k-1) = 0.0d0
             endif
-            xx(kmax) = dlog10( r(1,kmax) )
+            xx(kmax) = dlog10( r(1,kmax))
          enddo
 
       elseif( cvarx .eq. 'dr' )then
