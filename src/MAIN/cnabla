@@ -1,0 +1,38 @@
+
+c..include file cnabla (mixing length analysis)
+c..must follow dimenfile
+
+      real*8     dnab(kdm), dnad(kdm), dnrad(kdm), dnabv(kdm)
+      real*8     douxo(kdm), dnado(kdm), dnrado(kdm)
+      integer*4  ic(kdm), ia(kdm),ik(kdm)
+      integer*4  kbeg(kdm),kend(kdm),nrczones
+      integer*4  kscbeg(kdm), kscend(kdm), nrsczones
+
+      common /cnabla/ dnab, dnad, dnrad, 
+     1 dnabv, douxo, dnado, dnrado, ic, ia, ik, kbeg, kend, nrczones,
+     1 kscbeg, kscend, nrsczones
+
+      real*8 cons(kdm),edobv(kdm), bfak(kdm), fracon(kdm),
+     1 doux(kdm), dboe(kdm), zrad(kdm), astab(kdm), dely(kdm),
+     1 nsqr(kdm), shear(kdm), hmp(kdm), ld(kdm)
+      common /cnabla2/ cons,edobv, bfak, fracon,
+     1 doux, dboe, zrad, astab, dely, nsqr, shear, hmp, ld
+
+      real*8 draddl(kdm), dnabdl(kdm),  draddr(kdm),
+     1 draddtm(kdm), draddvm(kdm), draddtp(kdm), draddvp(kdm)
+      common /cnabla3/ draddl, dnabdl,  draddr,
+     1 draddtm, draddvm, draddtp, draddvp
+
+c	real*8 hmlfak
+c	integer*4 mixmode
+c	common /cnabla4/ hmlfak,mixmode
+
+c..overshoot and mixing
+	real*8 dif(kdm),dmom(kdm),ri(kdm)
+	common /cover/ dif,dmom,ri
+
+c..short time convection
+	real*8 cvcon,cfcon,cfrad
+	common/conshort/cvcon,cfcon,cfrad
+
+

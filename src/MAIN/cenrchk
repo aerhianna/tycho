@@ -1,0 +1,28 @@
+
+c..cenrchk common block for includes
+
+      real*8 esou,echeck,ekin,eint,pote,elum,pvm,dmgc2,
+     1 echkz,escl,enucl,enuclz,echk1o,bindz,dmgc2z,echk1,
+     2 pdvol,enewtz,diske
+      common/cenrchk/ esou,echeck,ekin,eint,pote,elum,pvm,dmgc2,
+     1 echkz,escl,enucl,enuclz,echk1o,bindz,dmgc2z,echk1,
+     2 pdvol,enewtz,diske   
+      
+c---------------------------------------------------------------------
+c..   uses GR (newt=0) or 
+c..   newtonian (newt=1) version of total energy for energy check
+c..   called by online.f  tycho.f
+c..   following quantities are only computed and printed to check code,
+c..   they are not needed in the computational stream.
+c..   ekin    = kinetic energy
+c..   pote    = potential energy
+c..   eint    = internal energy
+c..   esou    = net energy gained from internal sources.
+c..   elum    = net energy radiated from surface
+c..   echeck  = energy tally as shown in formula below
+c..   echk at t(n+1)
+c..   enucl   = nuclear energy relative to amu (12C)
+c..   enuclz  = initial value of enucl
+c..   diske   = cumulative dissipation of kinetic energy (damping
+c..	        needed to maintain HSE)
+c---------------------------------------------------------------------

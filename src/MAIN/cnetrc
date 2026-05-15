@@ -1,0 +1,7 @@
+c..include file cnetrc
+c..see also cburn
+      integer*4   n, nz(ndim), nn(ndim), nucp(60)
+      character*5 cnuc(ndim)
+      real*8      qex(ndim)
+
+      common /cnetrc/qex, nz,nn,cnuc

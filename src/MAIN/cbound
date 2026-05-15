@@ -1,0 +1,6 @@
+
+c..include file cbound
+
+      real*8    esuper
+      integer*4 ibnd
+      common/cbound/esuper,ibnd     

@@ -1,0 +1,7 @@
+c..include file comlink
+
+      real*8 rlink(nreac),x1(2,nreac),y1(2,nreac)
+      integer*4 in(nreac),ltyp(nreac),ldot(nreac)
+
+      common /comlink/rlink,x1,y1,in,ltyp,ldot
+

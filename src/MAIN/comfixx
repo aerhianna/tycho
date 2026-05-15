@@ -1,0 +1,6 @@
+c     common comfixx for cmix-fixx transfers
+
+      real*8 ytot(kdm),ytoto(kdm),olddo(kdm),newdo(kdm)
+      real*8 fakmu,fakx
+
+      common/comfixx/ytot,ytoto,olddo,newdo,fakmu,fakx

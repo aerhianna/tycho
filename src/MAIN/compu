@@ -1,0 +1,28 @@
+
+c..include file compu
+c..additional variables used in computational solution procedure
+c..must follow dimenfile
+
+      real*8 aa(jyey*2,jyey+1,kdm),dda(jyey*2,kdm),aerr(jyey*2,kdm),
+     1 ddao(jyey*2,kdm),
+     2 a(kdm),f(kdm),g(kdm),   
+     3 td(kdm),dv(2,kdm),dt(2,kdm),dr(kdm),dtl(kdm),           
+     4 xd(ndim,kdm),xold(ndim,kdm), xdcon(ndim,kdm),
+     5 s(7,kdm),st(kdm),sv(kdm),ssum(kdm),
+     5 b(kdm),y(kdm),z(kdm),vover(kdm),vunder(kdm),
+     6 wtest(jyey*2)
+
+      integer*4  nwtest(jyey*2), kbomb
+
+c..variables associated with computation of new model (sort of)
+      common/compuu/ 
+     1 aa, dda, aerr, ddao, a, f, g, td, dv, dt, dr, dtl,           
+     3 xd, xold, xdcon, s, st, sv, ssum, b, y, z, vover, vunder, wtest,
+     5 nwtest,kbomb
+ 
+      character cwtest(jyey*2)
+
+      common/ccompu/cwtest
+
+
+

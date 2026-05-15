@@ -1,0 +1,63 @@
+
+c..included common file: cconst
+      real*8 grav,arad,crad,rgas,pi,pi4,pi43,sol,sollum,cflux,
+     1 cergs,cergsdne,cevk,sigma,solrad,pcons,secpy,crad2,bohr,
+     2 fine,avagadro,boltz,boltzev,planck,evrestm,egrestm,
+     3 ergspermev,echarge,echargec,statm
+
+c..commonly used constants 
+c..fundamental constants
+c..grav      = gravitational constant G
+c..crad      = speed of light c
+c..evrestm   = rest mass of electron in Mev
+c..egrestm   = rest mass of electron in ergs
+c..bohr      = radius of bohr orbit for hydrogen in cm
+c..fine      = fine structure constant e**2/hbar c = 1/137
+c..avagadro  = Avagadro's number
+c..boltz     = boltzmann constant in erg/kelvin
+c..boltzev   = boltzmann constant in MeV/kelvin
+c..planck    = planck's constant in erg seconds
+c..echarge   = electron charge (coulomb) * crad * abcoulomb/coulomb
+c..echargec  = electron charge (coulomb)
+c..statm     = standard atmosphere in MPa
+c..            (used in Thoul diffusion)
+
+c..astronomical constants
+c..sol       = solar mass in grams
+c..sollum    = solar luminosity in erg/sec
+c..solrad    = solar radius in cm
+c..secpy     = seconds per year of 365.25 days
+
+c..derived constants
+c..arad      = radiation pressure constant a = sigma * 4 / c
+c..rgas      = gas constant = avagadro's number * boltzmann constant k
+c..pi4 	     = 4 pi,   pi43 = 4 pi/3
+c..cergs     = conversion of Mev/amu to ergs/gram
+c..cergsdne  = conversion from n particles to ergs/gram/K (3/2*k)
+c..cevk	     = conversion from Mev to kelvin (e/k )
+c..sigma     = stefan-boltzmann constant
+c..pconst    = pressure constant for fermi dirac e- gas 
+c..          = 8 pi (mc/h)**3 mc**2
+
+c..fundamental constants (CODATA 2022)
+        parameter( grav = 6.67430d-08,crad     = 2.997924580d+10,  
+     1  avagadro = 6.02214076d23,     planck   = 6.62607015d-27,
+     2  bohr     = 5.29177210544d-9,  fine     = 7.2973525643d-3, 
+     3	boltz    = 1.380649d-16,      boltzev  = 8.617333262d-11,
+     4	evrestm  = 5.1099895069d-1,   egrestm  = 9.1093837139d-28,
+     5	pi=3.141592653589793d+00,     echargec = 1.602176634d-19,
+     6	echarge = echargec*crad/1.0d1,statm    = 1.01325d-1 )
+c..astronomical constants (IAU 2015)
+	parameter( sol  = 1.98841d+33,   sollum = 3.828d33, 
+     1	solrad = 6.957d10,     secpy = 3.6d3*2.4d1*3.6525d2 )
+c..derived constants
+	parameter( rgas = boltz*avagadro,    crad2 = crad**2,
+     1  ergspermev = egrestm*crad2/evrestm,	 
+     2	pi4   = pi*4.0d0,                     pi43 = pi4/3.0d0,
+     3	sigma = pi**2*boltz*(boltz*2.0d0*pi/planck)**3/60.0d0/crad2,
+     4	arad  = 4.0d0*sigma/crad,         cflux = arad*crad/3.0d0, 
+     5	pcons = 2.0d0*pi4*(egrestm*crad/planck)**3*egrestm*crad2,
+     6  cergs = crad2*egrestm/evrestm*avagadro,
+     7	cergsdne = 1.5*boltzev*cergs,
+     8	cevk = 1.0d6*echargec/(boltz/1.0d7)    )
+

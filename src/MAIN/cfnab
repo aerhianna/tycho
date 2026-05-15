@@ -1,0 +1,6 @@
+c     common cfnab for tranfering working variables to subnab.f
+
+      real*8 coef,psi,uu
+
+      common/cfnab/coef,psi,uu
+

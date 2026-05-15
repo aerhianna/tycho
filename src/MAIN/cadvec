@@ -1,0 +1,7 @@
+
+c..include file cadvec for mass loss/accrection
+      real*8 delmas,hmas,tmloss,vinf
+      real*8 rsonic, tsonic, csonic, msonic, yesonic, kappsonic
+      integer*4 wrflag, ksonic, mdotpuls
+      common/cadvec/delmas,hmas,tmloss,vinf,rsonic, tsonic, kappsonic,
+     1      csonic, msonic, yesonic, wrflag, ksonic, mdotpuls 

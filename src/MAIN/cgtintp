@@ -1,0 +1,24 @@
+
+c..cgtintp common for include
+
+c..number of tests to make for rezoning
+      integer*4 ntests
+      parameter( ntests = 9)
+
+c..	try(n,k) is a set of trial functions which control rezoning
+c..	trymin(n) is the minimum value, below which deletion occurs
+c..	trymax(n) is the maximum value, above which addition occurs
+c..	between these the zoning is left alone
+      real*8 try(ntests,kdm),trymin(ntests),trymax(ntests)
+
+c..	iad(n,k) =1 if a zone is to be added, else 0
+c..	ide(n,k) =1 if a zone is to be deleted, else 0
+c..	in both cases, n denotes which test criterion was used
+      integer*4 iad(ntests,kdm),ide(ntests,kdm)
+
+c..	ctry is a symbol for each test criterion
+      character*3 ctry(ntests)
+      common/cgtintp/try,trymin,trymax,
+     1	iad,ide,
+     2	ctry
+

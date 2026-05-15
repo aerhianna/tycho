@@ -1,0 +1,4 @@
+c     common comdif for cmix-dthoul transfers
+c..abundance working array
+      real*8 scrx(ndim,kdm)
+      common/comdif/scrx
