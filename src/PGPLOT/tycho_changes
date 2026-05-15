@@ -1,0 +1,26 @@
+Changes to vanilla PGPLOT v5.2.2 carried out
+for the incorporation into the Tycho distribution:
+
+* drivers.list:
+
+- include the following drivers:
+  NUDRIV 
+  PSDRIF 1 2 3 4
+  XWDRIV 1 2
+  
+- created install directory "PGPLOT/lib"
+
+- added little script (make_pgplot_tycho.sh) to
+  generate the PGPLOT makefile and set up
+  environment files.
+
+- using sys_linux config options; added generic
+  option set 'tycho.conf.in' that is edited by
+  make_pgplot_tycho, setting CC, FC and FFLAGS.
+
+- added Makefile to control entire PGPLOT make
+  process; make_pgplot_tycho.sh is called by this
+  make file.
+
+
+

@@ -1,15 +1,13 @@
 #!/bin/sh
 
-echo "###################################################################"
-echo [DEBUG][EXECUTING] src/PGPLOT/make_pgplot_tycho.sh
 echo "Attempting to build PGPLOT library. Copyright Tim Pearson / Caltech"
 PWD=`pwd`
 
-echo [DEBUG] FC=$FC
-echo [DEBUG] CC=$CC
-echo [DEBUG] FFLAGS=$FFLAGS
-echo [DEBUG] XLIBS=$XLIBS
-echo [DEBUG] XINCS=$XINCS
+echo $FC
+echo $CC
+echo $FFLAGS
+echo $XLIBS
+echo $XINCS
 
 #XLIBS=\"$XLIBS
 #echo $XLIBS
@@ -21,7 +19,6 @@ cat tycho.conf.in|sed s,'@FC@',$FC,g|sed s,'@CC@',$CC,g|sed s,'@XLIBS@',"$XLIBS"
      sed s,'@XINCS@',"$XINCS",g|sed s,'@FFLAGS@',"$FFLAGS",g \
     > tycho.conf
 
-mkdir -p ../lib
 cd ../lib
 rm *.o *.a
 cp ../drivers.list .
