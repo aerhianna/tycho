@@ -453,7 +453,7 @@ c..   draw curve
                   endif
 c..   label
                   ctlabel = cnuc(n)
-                  call PGSCH(0.7)
+                  call PGSCH(1.0)
 c..   is value significant?
                   if( yy(kmax) .gt. ymin )then
 c..   is value increasing?

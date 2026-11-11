@@ -316,7 +316,7 @@ c..   hr.?? data file
       inquire(file=hrfile(1),exist=tobe)
       if( tobe )then
          open(8,file=hrfile(1))
-
+         open(32,file="LZhack.txt")
 
  100     continue
          if( l .gt. ndm )goto 101
@@ -336,6 +336,7 @@ c	 write(*,*)chi2,time(l),rphot(l),xlol(l),telog(l)
      2           bo_omega2(l),tauc(l),taug(l),vconv(l),
      3           xbosurfomeg(l)
          Mdot_star(l) = -Mdot_star(l)/sol*secpy
+         write(32,*)model1(l),time(l),xlol(l),xej(521),xej(522)
          if( iyvar .eq. 4 )then
             do j = 1, nuclei
                xxej(j,l) = xej(nucleus(j))
@@ -363,7 +364,7 @@ c..   echo last data read in
       endif
 
       close(8)
-
+      close(32)
       if( ixvar .eq. 0 )then
          xmin = time(1)
          xmax = time(ll)

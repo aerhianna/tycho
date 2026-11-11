@@ -598,7 +598,7 @@ c..   set angular velocities
          do k = 1, kk+1
             omeg(k) = omegbar
          enddo
-c..   set angylar momenta per unit mass
+c..   set angular momenta per unit mass
          ajaysum = 0.0d0
          do k = 1, kk+1
             ajay(k) = omeg(k)*r(1,k)**2
@@ -608,6 +608,14 @@ c..   set angylar momenta per unit mass
      1        'surf. speed(km/s)',omeg(kk+1)*r(1,kk+1)*1.0d-5,
      2        'free fall(km/s)',sqrt( 2.0d0*grav*xm(kk+1)/r(1,kk+1) )
      3        *1.0d-5
+      endif
+
+      if(omegbar .eq. 0.0d0)then
+         do k = 1, kk+1
+            omeg(k) = 0.0d0
+            ajay(k) = 0.0d0
+            ajaysum = 0.0d0
+         enddo
       endif
 
 c..   reset note to flag new model, will be redefined in gen.f
