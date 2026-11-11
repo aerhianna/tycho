@@ -17,6 +17,8 @@ c      parameter (nnuc=178, nreac=6000, nrtype=15, ndim=nnuc+1,
 c     1           wkreac=800, tsize=13, rhosize=11)
       parameter (nnuc=522, nreac = 256000, nrtype=15, ndim=nnuc+1,
      1           wkreac=1000, tsize=13, rhosize=11)
+c      parameter (nnuc=1409, nreac = 256000, nrtype=15, ndim=nnuc+1,
+c     1           wkreac=5000, tsize=13, rhosize=11)
 c..short list of nuclei
 c..low T network:
 c..lonuc 	dimension for nuclei = number of nuclei

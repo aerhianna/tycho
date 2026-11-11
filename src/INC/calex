@@ -5,7 +5,9 @@ c.. common block for Alexander & Ferguson opacity tables
       real*8 xhtabs, ztabs
       
 c      parameter(zsize = 31)
-      parameter(zsize = 89)
+c      parameter(zsize = 89)
+c..updated by A.W. in 2024 to work with Marigo et al. 2022 tables
+      parameter(zsize = 71)
 
       common/comkappi/pp, qq, hsize
 
