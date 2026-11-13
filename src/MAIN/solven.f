@@ -252,7 +252,7 @@ c..   catches worst negative abundance
          worsty  = 0.0d0
          do j = 1, itot
             yestim = y(j) + b(j)
-            if( yestim .lt. -3.0d-16 )then
+            if( yestim .lt. -8.0d-4 )then
                negflag = j
                worsty = yestim
             endif
@@ -263,7 +263,7 @@ c..   adjust time step
             if( b(negflag) .lt. 0.0d0 )then
 c               if( ncycle .gt. 1 .and. b(negflag) .lt. -1.0d-15 )then
 ccccccccccccccccccccccccccccccc
-               if( ncycle .gt. 2 .and. b(negflag) .lt. -1.0d-14 )then
+               if( ncycle .gt. 2 .and. b(negflag) .lt. -1.0d-4 )then
 
 c..   only write if there is continued trouble and
 c..   value is significantly different from roundoff
@@ -290,15 +290,15 @@ c..   avoid zero abundance
             endif
          endif
 
-         if(  abs(sumd) .lt. 1.0d-7
-     1        .and. negflag .eq. 0 
+         if(  abs(sumd) .lt. 1.0d-5
+     1        .and. negflag .eq. 0
      2        .and. dth .ge. dth0*0.5d0 )then
 
 c..   tests were successful
 c..   so update particle densities, time elapsed
-            sumx = 0
-            sumz = 0
-            eta  = 0
+            sumx = 0.0d0
+            sumz = 0.0d0
+            eta  = 0.0d0
             do  j = 1, itot
                y(j) = y(j) + b(j)
 c..   positive or zero

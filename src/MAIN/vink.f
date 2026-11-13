@@ -23,7 +23,7 @@ c Below copied from reimers.f
 	  real*8 vinkmdot_hot,vinkmdot_cool,Te_jump
 	  real*8 vesc,M,R,g,c,a,b,vratio
 
-	  parameter(c = 5.5d-13)
+	  parameter(c = 5.5d-14)
 	  parameter(a = -1.9777d-1)
 	  parameter(b = 1.1681d0)
 
