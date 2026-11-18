@@ -156,18 +156,11 @@ TYCHO uses GNUmake to compile the code, build libraries, and create executables.
     LIBPG = /Users/payoung/tycho-1-14/src/PGPLOT/lib/libpgplot.a
     LIBX11 = /opt/X11/lib/libX11.dylib
 
-    # NOTE: LIBAPP and LIBFOUND may need to be uncommented for older versions of macOS.
-    #LIBFOUND = /System/Library/Frameworks/Foundation.framework/Versions/
-    Current/Foundation -lcc_dynamic
-    #LIBAPP = /System/Library/Frameworks/AppKit.framework/Versions/
-    Current/AppKit -lcc_dynamic
     LIBALL = /Users/payoung/tycho-clean/src/PGPLOT/lib/libpgplot.a \
     /opt/X11/lib/libX11.dylib \
-    # /System/Library/Frameworks/Foundation.framework/Versions/
-    Current/Foundation -lgcc \
-    # /System/Library/Frameworks/AppKit.framework/Versions/Current/
-    AppKit -lgcc
+  
     INCX11 = -I/opt/X11/include
+
     # for Linux Intel with gfortran
     #OPT = -g3 -O2 -C -Wall
     # for powerpc64
@@ -177,11 +170,11 @@ TYCHO uses GNUmake to compile the code, build libraries, and create executables.
     #OPT = -O2 -g
     PROF = -pg
     # for macOS with gfortran
-    FORT = gfortran
-    CC = gcc
+    FORT = /opt/homebrew/bin/gfortran
+    CC = /opt/homebrew/bin/gcc-14
     #OPT = -O3 -g -msse -msse2
     #OPT = -O2 -g -mcmodel=medium -m64
-    OPT = -O3 -march=native -g -m64 -fallow-argument-mismatch
+    OPT = -O3 -g -fallow-argument-mismatch
     MIPS =
     FFLAGS = $(OPT) $(MIPS)
     CFLAGS =
@@ -189,9 +182,9 @@ TYCHO uses GNUmake to compile the code, build libraries, and create executables.
 
     </details>
 
-1. You will need to add the PGPLOT_DIR and PG_FONT variables to your .tcshrc or .bashrc
+1. You will need to add the PGPLOT_DIR and PG_FONT variables to your .tcshrc or .bashrc or .zshrc
 or .profile file. Here is an example. An example .tcshrc file is available on Canvas. Here is a
-resource for converting between bash and tcsh: https://hyperpolyglot.org/unix-shells.
+resource for converting between shells: https://hyperpolyglot.org/unix-shells.
 
 ```shell
 # tcsh:
@@ -199,14 +192,14 @@ setenv TYCHO_HOME ${HOME}/git/tycho
 setenv PGPLOT_DIR ${TYCHO_HOME}/src/PGPLOT/lib/
 setenv PG_FONT ${TYCHO_HOME}/src/PGPLOT/lib/grfont.dat
 ```
-```bash
-# bash:
+```bash or zsh
+# bash or zsh:
 export TYCHO_HOME="$HOME/git/tycho"
 export PGPLOT_DIR="$TYCHO_HOME/src/PGPLOT/lib/"
 export PGPLOT_FONT="$TYCHO_HOME/src/PGPLOT/lib/grfont.dat"
 ```
 
-Make sure to restart your shell for the settings to take effect (e.g. `exec $SHELL`)
+Make sure to restart or source your shell for the settings to take effect (e.g. `exec $SHELL` or `source ~/.profile`)
 
 3. Compile the code. 
    - You need to be in `src/`.
@@ -333,7 +326,7 @@ value. omegbar is rotational frequency in radian/sec.
 
 ## Running Tycho
 
-After compiling Tycho, copy /test/tycho8 to your working directory (i.e. in /tycho-spring21, cp
+After compiling Tycho, copy /test/tycho8 to your working directory (i.e. in /tycho-spring24, cp
 test/tycho8 run/). To run, type ./tycho8 or tycho8 if ./ is in your path. The same applies to other
 programs such as genex.
 
