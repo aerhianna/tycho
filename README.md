@@ -142,7 +142,7 @@ TYCHO uses GNUmake to compile the code, build libraries, and create executables.
 1. Set up the makefile for your computer. The following command should grab the correct template for your operating system.
    
    ```bash
-   cp src/makefile.env.$OSTYPE src/makefile.env
+   cp src/makefile.env.$OSTYPE src/$HOST/makefile.$HOST
    ```
 
     <details>
