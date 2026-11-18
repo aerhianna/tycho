@@ -126,8 +126,11 @@ After unpacking the tarball you will see a root directory called tycho-spring21/
 subdirectories. The ones you are most likely to use are:
 
 ```bash
+├── batch/ # Utilities for running batches of models
 ├── burn/ # Utilities for creating reaction networks and doing single zone calculations
-├── cmd_files/ # Templates for all the *.in files used by analysis and setup programs
+├── config/ # Templates for all the *.in files used by analysis and setup programs
+├── data/ # Tables for EOS, opacity, nuclear network etc. data
+├── models/ # Initial stellar models for a variety of parameters
 ├── run/ # Working space for the code
 ├── src/ # Source code
 └── test/ # Compiled binaries and testing routines
